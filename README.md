@@ -26,7 +26,8 @@
 - [Axios](https://axios-http.com/docs/intro),
 - Jest,
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/),
-- [Mock Service Worker](https://mswjs.io/docs/).
+- [Mock Service Worker](https://mswjs.io/docs/),
+- [Material-UI](https://material-ui.com/ru/getting-started/usage/).
 
 ## основные скрипты (кроме первых двух: yarn или npm ...)
 - yarn - установить зависимости
