@@ -3,6 +3,7 @@ const Dotenv = require("dotenv-webpack");
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
 
 module.exports = {
   resolve: {
@@ -10,6 +11,7 @@ module.exports = {
   },
   context: resolve(__dirname, "../../src"),
   plugins: [
+    new SimpleProgressWebpackPlugin(),
     new HtmlWebpackPlugin({ template: "index.html.ejs" }),
     new MiniCssExtractPlugin(),
     new Dotenv(),
