@@ -2,12 +2,20 @@
 const Dotenv = require("dotenv-webpack");
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
 
 module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   context: resolve(__dirname, "../../src"),
+  plugins: [
+    new SimpleProgressWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: "index.html.ejs" }),
+    new MiniCssExtractPlugin(),
+    new Dotenv(),
+  ],
   module: {
     rules: [
       {
@@ -21,7 +29,26 @@ module.exports = {
       },
       {
         test: /\.(scss|sass)$/,
+        include: /\.notmodule\.(scss|sass)$/,
         use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(scss|sass)$/,
+        exclude: /\.notmodule\.(scss|sass)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "@teamsupercell/typings-for-css-modules-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              modules: {
+                localIdentName: "[local]_[hash:base64:5]", //[name]
+              },
+            },
+          },
+          "sass-loader",
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -32,10 +59,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({ template: "index.html.ejs" }),
-    new Dotenv(),
-  ],
   externals: {
     react: "React",
     "react-dom": "ReactDOM",
