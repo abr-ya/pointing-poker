@@ -18,16 +18,19 @@
 ## основные инструменты
 Сборка использует (основное):
 - [TypeScript](https://www.typescriptlang.org/docs/),
+- [Webpack](https://webpack.js.org/guides/getting-started/),
+- [Babel](https://babeljs.io/setup),
 - [React](https://ru.react.js.org/docs/getting-started.html),
-- React Router,
-- Redux,
+- [React Router](https://reactrouter.com/web/guides/quick-start),
+- [React Redux](https://react-redux.js.org/),
 - [Redux Saga](https://redux-saga.js.org/docs/api/),
-- SCSS,
+- [SASS](https://sass-lang.com/),
 - [Axios](https://axios-http.com/docs/intro),
-- Jest,
+- [Jest](https://jestjs.io/docs/getting-started),
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/),
 - [Mock Service Worker](https://mswjs.io/docs/),
-- [Material-UI](https://material-ui.com/ru/getting-started/usage/).
+- [Material-UI](https://material-ui.com/ru/getting-started/usage/),
+- [Formik](https://dev.to/finallynero/react-form-using-formik-material-ui-and-yup-2e8h).
 
 ## основные скрипты (кроме первых двух: yarn или npm ...)
 - yarn - установить зависимости
@@ -35,6 +38,7 @@
 - build - production сборка в dist
 - build-n - production сборка с предварительным созданием файла .env на Netlify
 - lint - eslint
+- lint-e - eslint, только ошибки
 - fix - eslint, исправление ошибок
 - start - запуск дев-сервера, порт 3000
 - start-prod - production сборка и запуск сервера express, порт 3030

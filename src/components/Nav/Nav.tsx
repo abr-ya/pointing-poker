@@ -23,7 +23,7 @@ const Nav = (): JSX.Element => {
 
   return (
     <nav
-      className={`${classes.logo} navbar navbar-dark bg-primary navbar-expand-lg`}
+      className={`${classes.navigation} navbar navbar-dark bg-primary navbar-expand-lg`}
     >
       <div className={`${classes.logo} navbar-brand`}>{title}</div>
       <ul className="navbar-nav">{htmlLinks}</ul>
