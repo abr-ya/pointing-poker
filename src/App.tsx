@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { About, Home, Error404, Components } from "./pages";
 import Nav from "./components/Nav/Nav";
-import "./App.scss";
+import "./App.notmodule.scss";
 
 const App = (): JSX.Element => (
   <BrowserRouter basename="/">
