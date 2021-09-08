@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
+import ModalLobby from "../components/Modal/ModalLobby";
+import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
+import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
 
 const Components = (): JSX.Element => {
   const butonClickHandler = () => {
     console.log("Это был клик по кнопке!");
+  };
+  const [open, setOpen] = useState(false);
+  const [issueIsOpen, setIssueOpen] = useState(false);
+  const [connectedToLobby, setConnectedToLobby] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const openIssue = () => {
+    setIssueOpen(true);
+  };
+
+  const closeIssue = () => {
+    setIssueOpen(false);
+  };
+
+  const confirmFunc = () => {
+    setConnectedToLobby(true);
+  };
+
+  const cancelFunc = () => {
+    setConnectedToLobby(false);
   };
 
   return (
@@ -15,6 +45,25 @@ const Components = (): JSX.Element => {
       </p>
       <h2>Кастомная кнопка</h2>
       <ButtonPrim text="Я кнопка" handler={butonClickHandler} />
+      <h2>Модальное окно (Kick Player)</h2>
+      <ModalLobby
+        name="David Blane"
+        open={open}
+        yesFunc={handleClickOpen}
+        noFunc={handleClose}
+      />
+      <h2>Модальное окно (Create Issue)</h2>
+      <ModalCreateIssue
+        issueIsOpen={issueIsOpen}
+        yesFunc={openIssue}
+        noFunc={closeIssue}
+      />
+      <h2>Модальное окно (Connect to lobby)</h2>
+      <ModalConnectToLobby
+        connectedToLobby={connectedToLobby}
+        confirmFunc={confirmFunc}
+        cancelFunc={cancelFunc}
+      />
     </div>
   );
 };
