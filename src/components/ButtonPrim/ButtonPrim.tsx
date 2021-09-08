@@ -7,7 +7,7 @@ interface IButtonPrim {
 }
 
 const ButtonPrim = ({ text, handler }: IButtonPrim): JSX.Element => (
-  <Button variant="contained" color="primary" onClick={handler}>
+  <Button variant="outlined" color="primary" onClick={handler}>
     {text}
   </Button>
 );
