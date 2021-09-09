@@ -3,8 +3,35 @@ import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
 import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
+import { createStyles, Grid, makeStyles } from "@material-ui/core";
+import PokerCard from "../components/PokerCard/PokerCard";
+
+const cardValues = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "5",
+  "8",
+  "13",
+  "21",
+  "34",
+  "55",
+  "89",
+  "add",
+];
 
 const Components = (): JSX.Element => {
+  const useStyles = makeStyles(() =>
+  createStyles({
+    pokerCardContainer: {
+      width: "100%",
+    },
+  }),
+  );
+
+  const classes = useStyles();
+
   const butonClickHandler = () => {
     console.log("Это был клик по кнопке!");
   };
@@ -36,6 +63,12 @@ const Components = (): JSX.Element => {
     setConnectedToLobby(false);
   };
 
+  const cards: JSX.Element[] = cardValues.map((elem: string): JSX.Element => {
+    return (
+      <PokerCard cardValue={elem} key={elem} />
+    );
+  });
+
   return (
     <div className="container">
       <h1>Components page</h1>
@@ -64,6 +97,16 @@ const Components = (): JSX.Element => {
         confirmFunc={confirmFunc}
         cancelFunc={cancelFunc}
       />
+      <Grid
+        className={classes.pokerCardContainer}
+        container
+        spacing={6}
+        justifyContent="center"
+        alignItems="center"
+        wrap="wrap"
+      >
+        {cards}
+      </Grid>
     </div>
   );
 };
