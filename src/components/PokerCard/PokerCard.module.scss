@@ -1,20 +1,13 @@
-* {
-  box-sizing: border-box;
-}
-
 .pokerCard {
   position: relative;
-  margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 10px;
   background-color: white;
   background-size: 50px auto;
   border-radius: 5px;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
-  padding: 5px;
-  padding-right: 0;
   display: grid;
   justify-items: end;
-  align-content: center;
+  align-items: center;
   font-size: 4.5rem;
 
   &::before,
@@ -28,27 +21,27 @@
   }
 
   &::before {
-    top: 5px;
+    top: 0;
     left: 5px;
   }
 
   &::after {
   right: 5px;
-  bottom: 5px;
+  bottom: 0;
   transform: rotate(180deg);
   }
 
   &.lobbyCard {
-    grid-template-rows: 20% 75% 5%;
+    grid-template-rows: 20% 60% 20%;
   }
 
-  &.smallPokerCard {
+  &.smallCard {
     width: 80px;
     height: 130px;
     font-size: 3.5rem;
   }
 
-  &.bigPokerCard {
+  &.bigCard {
     width: 100px;
     height: 150px;
   }
@@ -66,11 +59,15 @@
 .pokerCardValue {
   margin: 0;
   font-weight: bold;
-  justify-self: stretch;
-  text-align: center;
+  justify-self: center;
 }
 
 .addIcon {
   width: 80%;
   height: auto;
+  justify-self: center;
+}
+
+.editIcon {
+  padding-top:7px;
 }
