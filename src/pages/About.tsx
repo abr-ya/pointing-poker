@@ -10,6 +10,8 @@ const About = (): JSX.Element => {
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit
         a rem id quae officiis distinctio ipsa, quidem nisi amet eos?
       </p>
+      <img src="/images/1918282_original.jpg" alt="alt-text" />
+      <img src="/images/logo.png" alt="logo" />
     </div>
   );
 };
