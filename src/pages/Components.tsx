@@ -3,6 +3,7 @@ import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
 import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
+import FileLoader from "../components/FileLoader/FileLoader";
 
 const Components = (): JSX.Element => {
   const butonClickHandler = () => {
@@ -36,6 +37,10 @@ const Components = (): JSX.Element => {
     setConnectedToLobby(false);
   };
 
+  const fileLoadHandler = (name: string) => {
+    console.log("загрузили файл", name, "(Components, fileLoadHandler)");
+  };
+
   return (
     <div className="container">
       <h1>Components page</h1>
@@ -64,6 +69,8 @@ const Components = (): JSX.Element => {
         confirmFunc={confirmFunc}
         cancelFunc={cancelFunc}
       />
+      <h2>FileLoader</h2>
+      <FileLoader succesHandler={fileLoadHandler} />
     </div>
   );
 };
