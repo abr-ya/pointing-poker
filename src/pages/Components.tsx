@@ -23,11 +23,11 @@ const cardValues = [
 
 const Components = (): JSX.Element => {
   const useStyles = makeStyles(() =>
-  createStyles({
-    pokerCardContainer: {
-      width: "100%",
-    },
-  }),
+    createStyles({
+      pokerCardContainer: {
+        width: "100%",
+      },
+    }),
   );
 
   const classes = useStyles();
@@ -64,9 +64,7 @@ const Components = (): JSX.Element => {
   };
 
   const cards: JSX.Element[] = cardValues.map((elem: string): JSX.Element => {
-    return (
-      <PokerCard cardValue={elem} key={elem} />
-    );
+    return <PokerCard cardValue={elem} key={elem} />;
   });
 
   return (
