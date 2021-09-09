@@ -1,15 +1,23 @@
+import Grid from "@material-ui/core/Grid/Grid";
+import CreateTwoToneIcon from "@material-ui/icons/CreateTwoTone";
 import React from "react";
-import "./PokerCard.css";
+import "./PokerCard.scss";
 
-interface PokerCardprops {
+interface IPokerCardProps {
   cardValue: number;
+  cardSizeClass: string;
 }
 
-const PokerCard = ({ cardValue }: PokerCardprops): JSX.Element => {
+const PokerCard = ({
+  cardValue,
+  cardSizeClass = "",
+}: IPokerCardProps): JSX.Element => {
   return (
-    <div className="card">
-      <p className="cardValue">{cardValue}</p>
-    </div>
+    <Grid item>
+      <div className={`pokerCard ${cardSizeClass}`}>
+        <p className="pokerCardValue">{cardValue}</p>
+      </div>
+    </Grid>
   );
 };
 
