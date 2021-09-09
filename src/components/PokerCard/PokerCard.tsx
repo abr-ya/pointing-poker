@@ -32,24 +32,32 @@ const PokerCard = ({
     }
   };
 
-  const isLobbyCard = (): any => {
+  const isLobbyCard = (): string => {
     return lobbyPokerCard ? classes.lobbyCard : "";
   };
 
-  const isAddCard = (cardValue: string): any => {
+  const isAddCard = (cardValue: string): string => {
     return cardValue === "add" ? classes.addCard : "";
   };
 
   // TO-DO object
-  const cardSize = (cardSizeClass: string): any => {
+  const cardSize = (cardSizeClass: string): string => {
     return cardSizeClass === "bigCard" ? classes.bigCard : classes.smallCard;
   };
 
-  const cardClassName = (cardValue: string): any => {
-    let className = classes.pokerCard;
-    // return className.concat(" ", classes.`${cardSizeClass}`, " " , isLobbyCard(), " ", isAddCard(cardValue)).trim();
-    return className.concat(" ", cardSize(cardSizeClass), " " , isLobbyCard(), " ", isAddCard(cardValue)).trim();
-  }
+  const cardClassName = (cardValue: string): string => {
+    const className = classes.pokerCard;
+    return className
+      .concat(
+        " ",
+        cardSize(cardSizeClass),
+        " ",
+        isLobbyCard(),
+        " ",
+        isAddCard(cardValue),
+      )
+      .trim();
+  };
 
   return (
     <Grid item>
@@ -61,25 +69,22 @@ const PokerCard = ({
           <IconButton
             aria-label="edit card"
             onClick={(event) => handleEditClick(event, cardValue)}
-            // className={classes.iconEditCard}
             className={classes.editIcon}
           >
             <CreateTwoToneIcon />
           </IconButton>
         )}
 
-          {cardValue != "add" ? (
-            <p className={classes.pokerCardValue}>
-              {cardValue}
-            </p>
-          ) : (
-            <AddCircleOutlineIcon
-              aria-label="add new card"
-              fontSize="inherit"
-              htmlColor="#6b6b6b"
-              className={classes.addIcon}
-            />
-          )}
+        {cardValue != "add" ? (
+          <p className={classes.pokerCardValue}>{cardValue}</p>
+        ) : (
+          <AddCircleOutlineIcon
+            aria-label="add new card"
+            fontSize="inherit"
+            htmlColor="#6b6b6b"
+            className={classes.addIcon}
+          />
+        )}
       </div>
     </Grid>
   );
