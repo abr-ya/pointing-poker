@@ -1,42 +1,48 @@
-.card {
+.pokerCard {
   position: relative;
-  width: 140px;
-  height: 200px;
   margin: 0 auto;
   margin-top: 30px;
   background-color: white;
   background-size: 50px auto;
   border-radius: 5px;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.card::before {
+  &::before,
+  &::after {
   content: "SP";
   position: absolute;
-  top: 5px;
-  left: 5px;
   padding-bottom: 20px;
-  font-size: 30px;
+  font-size: 1.5rem;
   color: black;
   background-size: 25px auto;
-}
+  }
 
-.card::after {
-  content: "SP";
-  position: absolute;
+  &::before {
+    top: 5px;
+    left: 5px;
+  }
+
+  &::after {
   right: 5px;
   bottom: 5px;
-  padding-bottom: 20px;
-  font-size: 30px;
-  color: black;
-  background-size: 25px auto;
   transform: rotate(180deg);
+  }
 }
 
-.cardValue {
-  margin: 0 auto;
-  margin-top: auto;
-  margin-bottom: auto;
+.pokerCardValue {
   font-weight: bold;
-  font-size: 100px;
+  font-size: 4.5rem;
+}
+
+.smallPokerCard {
+  width: 80px;
+  height: 130px;
+}
+
+.bigPokerCard {
+  width: 100px;
+  height: 150px;
 }
