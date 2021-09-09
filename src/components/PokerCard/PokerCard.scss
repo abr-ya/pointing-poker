@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .pokerCard {
   position: relative;
   margin: 0 auto;
@@ -6,18 +10,21 @@
   background-size: 50px auto;
   border-radius: 5px;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 5px;
+  padding-right: 0;
+  display: grid;
+  justify-items: end;
+  align-content: center;
+  font-size: 4.5rem;
 
   &::before,
   &::after {
-  content: "SP";
-  position: absolute;
-  padding-bottom: 20px;
-  font-size: 1.5rem;
-  color: black;
-  background-size: 25px auto;
+    content: "SP";
+    position: absolute;
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+    color: black;
+    background-size: 25px auto;
   }
 
   &::before {
@@ -30,19 +37,40 @@
   bottom: 5px;
   transform: rotate(180deg);
   }
+
+  &.lobbyCard {
+    grid-template-rows: 20% 75% 5%;
+  }
+
+  &.smallPokerCard {
+    width: 80px;
+    height: 130px;
+    font-size: 3.5rem;
+  }
+
+  &.bigPokerCard {
+    width: 100px;
+    height: 150px;
+  }
+
+  &.activePokerCard {
+    background-color: #B6EEE2;
+  }
+}
+
+.addCard.pokerCard::before,
+.addCard.pokerCard::after {
+  content:"";
 }
 
 .pokerCardValue {
+  margin: 0;
   font-weight: bold;
-  font-size: 4.5rem;
+  justify-self: stretch;
+  text-align: center;
 }
 
-.smallPokerCard {
-  width: 80px;
-  height: 130px;
-}
-
-.bigPokerCard {
-  width: 100px;
-  height: 150px;
+.addIcon {
+  width: 80%;
+  height: auto;
 }
