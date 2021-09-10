@@ -64,7 +64,9 @@ const Components = (): JSX.Element => {
   };
 
   const cards: JSX.Element[] = cardValues.map((elem: string): JSX.Element => {
-    return <PokerCard cardValue={elem} key={elem} />;
+    return (
+      <PokerCard cardValue={elem} cardSizeClass="smallPokerCard" key={elem} />
+    );
   });
 
   return (
