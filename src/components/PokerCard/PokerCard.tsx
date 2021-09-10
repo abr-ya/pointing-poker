@@ -1,8 +1,9 @@
+import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CreateTwoToneIcon from "@material-ui/icons/CreateTwoTone";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import React from "react";
+import cn from "classnames";
 import classes from "./PokerCard.module.scss";
 
 interface IPokerCardProps {
@@ -32,37 +33,15 @@ const PokerCard = ({
     }
   };
 
-  const isLobbyCard = (): string => {
-    return lobbyPokerCard ? classes.lobbyCard : "";
-  };
-
-  const isAddCard = (cardValue: string): string => {
-    return cardValue === "add" ? classes.addCard : "";
-  };
-
-  // TO-DO object
-  const cardSize = (cardSizeClass: string): string => {
-    return cardSizeClass === "bigCard" ? classes.bigCard : classes.smallCard;
-  };
-
-  const cardClassName = (cardValue: string): string => {
-    const className = classes.pokerCard;
-    return className
-      .concat(
-        " ",
-        cardSize(cardSizeClass),
-        " ",
-        isLobbyCard(),
-        " ",
-        isAddCard(cardValue),
-      )
-      .trim();
-  };
-
   return (
     <Grid item>
       <div
-        className={cardClassName(cardValue)}
+        className={cn(classes.pokerCard, {
+          [classes.lobbyCard]: lobbyPokerCard,
+          [classes.addCard]: cardValue === "add",
+          [classes.bigCard]: cardSizeClass === "bigCard",
+          [classes.smallCard]: cardSizeClass !== "bigCard",
+        })}
         onClick={() => handleCardClick(cardValue)}
       >
         {lobbyPokerCard && (
