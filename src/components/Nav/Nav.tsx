@@ -5,7 +5,7 @@ import classes from "./nav.scss";
 const Nav = (): JSX.Element => {
   const title = "Planning Poker";
   const links = [
-    { name: "Home", link: "/", exact: true },
+    { name: "Main", link: "/", exact: true },
     { name: "About", link: "/about", exact: false },
     { name: "Components", link: "/test", exact: false },
   ];
