@@ -83,6 +83,11 @@ const Components = (): JSX.Element => {
       </p>
       <h2>Кастомная кнопка</h2>
       <ButtonPrim text="Я кнопка" handler={butonClickHandler} />
+      <ButtonPrim
+        text="Я доп. кнопка"
+        handler={butonClickHandler}
+        isAdditional
+      />
       <h2>Модальное окно (Kick Player)</h2>
       <ModalLobby
         name="David Blane"
