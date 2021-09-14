@@ -5,6 +5,8 @@ import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
 import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
+import SettingsLobby from "../components/SettingsLobby/SettingsLobby";
+import HeaderLobby from "../components/headerLobby/headerLobby";
 
 const cardValues = [
   "0",
@@ -102,8 +104,9 @@ const Components = (): JSX.Element => {
         confirmFunc={confirmFunc}
         cancelFunc={cancelFunc}
       />
-      <h2>Poker Cards</h2>
-      <Grid
+      <HeaderLobby />
+      {/* <h2>Poker Cards</h2> */}
+      {/* <Grid
         className={classes.pokerCardContainer}
         container
         spacing={6}
@@ -112,7 +115,7 @@ const Components = (): JSX.Element => {
         wrap="wrap"
       >
         {cards}
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
