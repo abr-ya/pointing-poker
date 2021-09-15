@@ -11,6 +11,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import FileLoader from "../FileLoader/FileLoader";
+import { Formik, Form } from "formik";
 
 const API_FILE = process.env.API_FILE;
 
@@ -34,16 +35,25 @@ interface IModalConnectToLobby {
   connectedToLobby: boolean;
   confirmFunc: () => void;
   cancelFunc: () => void;
+  onSubmit: (values: IUserInfo) => void;
+}
+
+interface IUserInfo {
+  firstName: string;
+  lastName: string;
+  position: string;
 }
 
 const ModalConnectToLobby = ({
   connectedToLobby,
   confirmFunc,
   cancelFunc,
+  onSubmit,
 }: IModalConnectToLobby): JSX.Element => {
   const classes = useStyles();
   const [img, setImg] = useState(null);
   const [imgError, setImgError] = useState(false);
+  // const formik = useFormik({
 
   const cancelHandler = () => {
     setImg(null);
@@ -71,53 +81,75 @@ const ModalConnectToLobby = ({
         aria-describedby="dialog-description"
       >
         <DialogTitle id="dialog-title">{"Connect to lobby"}</DialogTitle>
-
         <DialogContent>
-          <form>
-            <FormGroup className={classes.switcher} aria-label="position" row>
-              <FormControlLabel
-                control={<Switch color="primary" />}
-                label="Connect as Observer"
-                labelPlacement="start"
-              />
-            </FormGroup>
-            <TextField
-              label="Your first name:"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Your last name:"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Your job position:"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              margin="normal"
-            />
-            <FileLoader
-              succesHandler={imgSuccesHandler}
-              errorHandler={imgErrorHandler}
-            />
-            {img && (
-              <Avatar
-                className={classes.avatar}
-                alt="User"
-                src={`${API_FILE}files/${img}`}
-              />
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              position: "",
+            }}
+            onSubmit={(values) => {
+              onSubmit(values);
+            }}
+          >
+            {() => (
+              <Form>
+                <FormGroup
+                  className={classes.switcher}
+                  aria-label="position"
+                  row
+                >
+                  <FormControlLabel
+                    control={<Switch color="primary" />}
+                    label="Connect as Observer"
+                    labelPlacement="start"
+                  />
+                </FormGroup>
+                <TextField
+                  label="Your first name:"
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  margin="normal"
+                  name="firstName"
+                  // value={formik.values.firstName}
+                  // onChange={formik.handleChange}
+                />
+                <TextField
+                  label="Your last name:"
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  margin="normal"
+                  name="lastName"
+                />
+                <TextField
+                  label="Your job position:"
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  margin="normal"
+                  name="jobPosition"
+                />
+                <FileLoader
+                  succesHandler={imgSuccesHandler}
+                  errorHandler={imgErrorHandler}
+                />
+                {/* {img && (
+                  <Avatar
+                    className={classes.avatar}
+                    alt="User"
+                    src={`${API_FILE}files/${img}`}
+                    name="avatar"
+                  />
+                )} */}
+                {imgError && <span>Некорректно выбран файл - красным!</span>}
+              </Form>
             )}
-            {imgError && <span>Некорректно выбран файл - красным!</span>}
-          </form>
+          </Formik>
         </DialogContent>
         <DialogActions>
-          <ButtonPrim text="Confirm" handler={confirmFunc}></ButtonPrim>
+          <ButtonPrim text="Confirm" handler={onSubmit}></ButtonPrim>
           <ButtonPrim text="Cancel" handler={cancelHandler}></ButtonPrim>
         </DialogActions>
       </Dialog>
