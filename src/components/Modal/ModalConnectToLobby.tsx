@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Button, TextField } from "@material-ui/core";
+import { Box, Button, createStyles, TextField, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -18,25 +18,42 @@ import * as Yup from "yup";
 const API_FILE_USER = process.env.API_FILE_USER;
 const API_FILE = process.env.API_FILE;
 
-const useStyles = makeStyles({
-  switcher: {
-    justifyContent: "flex-end",
-  },
-  btn: {
-    display: "inline-block",
-    marginTop: 35,
-    marginLeft: 20,
-    maxWidth: 100,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-  },
-  error: {
-    color: "red",
-  },
-});
-
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    switcher: {
+      justifyContent: "flex-end",
+    },
+    btn: {
+      display: "inline-block",
+      marginTop: 35,
+      marginLeft: 20,
+      maxWidth: 100,
+    },
+    inputRoot: {
+      width: "350px",
+    },
+    avatar: {
+      width: 100,
+      height: 100,
+    },
+    error: {
+      color: "red",
+    },
+    infoField: {
+      display: "flex",
+      width: "500px",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    form: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    dialog: {
+      minWidth: "600px",
+    },
+  }),
+);
 interface IModalConnectToLobby {
   connectedToLobby: boolean;
   confirmFunc: () => void;
@@ -67,9 +84,17 @@ const SignupValidation = Yup.object().shape({
   first_name: Yup.string()
     .min(2, "Too Short!")
     .max(70, "Too Long!")
-    .required("Required"),
+    .required("Enter your name"),
   last_name: Yup.string().min(2, "Too Short!").max(70, "Too Long!"),
 });
+
+const InitialValues = {
+  first_name: "",
+  last_name: "",
+  position: "",
+  is_observer: false,
+  image: "",
+};
 
 const ModalConnectToLobby = ({
   connectedToLobby,
@@ -103,6 +128,7 @@ const ModalConnectToLobby = ({
     <>
       <ButtonPrim text="Connect to lobby" handler={confirmFunc}></ButtonPrim>
       <Dialog
+        className={classes.dialog}
         open={connectedToLobby}
         onClose={cancelHandler}
         aria-labelledby="dialog-title"
@@ -111,13 +137,7 @@ const ModalConnectToLobby = ({
         <DialogTitle id="dialog-title">{"Connect to lobby"}</DialogTitle>
         <DialogContent>
           <Formik
-            initialValues={{
-              first_name: "",
-              last_name: "",
-              position: "",
-              is_observer: false,
-              image: "",
-            }}
+            initialValues={InitialValues}
             validationSchema={SignupValidation}
             onSubmit={(values) => {
               // onSubmit(values);
@@ -146,7 +166,7 @@ const ModalConnectToLobby = ({
           >
             {({ values, handleChange, handleBlur }) => {
               return (
-                <Form>
+                <Form className={classes.form}>
                   {!isMaster && (
                     <FormGroup
                       className={classes.switcher}
@@ -167,42 +187,46 @@ const ModalConnectToLobby = ({
                       />
                     </FormGroup>
                   )}
-                  <TextField
-                    // error={errors.first_name}
-                    label="Your first name:"
-                    variant="outlined"
-                    color="secondary"
-                    margin="normal"
-                    name="first_name"
-                    value={values.first_name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <ErrorMessage
-                    component="span"
-                    className={classes.error}
-                    name="first_name"
-                  />
-                  <TextField
-                    label="Your last name:"
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth
-                    margin="normal"
-                    name="last_name"
-                    value={values.last_name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <ErrorMessage
-                    component="span"
-                    className={classes.error}
-                    name="last_name"
-                  />
+                  <Box className={classes.infoField}>
+                    <TextField
+                      required
+                      label="Your first name:"
+                      variant="outlined"
+                      color="secondary"
+                      margin="normal"
+                      name="first_name"
+                      value={values.first_name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      component="span"
+                      className={classes.error}
+                      name="first_name"
+                    />
+                  </Box>
+                  <Box className={classes.infoField}>
+                    <TextField
+                      label="Your last name:"
+                      variant="outlined"
+                      // color="secondary"
+                      // fullWidth
+                      margin="normal"
+                      name="last_name"
+                      value={values.last_name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      component="span"
+                      className={classes.error}
+                      name="last_name"
+                    />
+                  </Box>
                   <TextField
                     label="Your job position:"
                     variant="outlined"
-                    color="secondary"
+                    // color="secondary"
                     fullWidth
                     margin="normal"
                     name="position"
@@ -210,24 +234,26 @@ const ModalConnectToLobby = ({
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <FileLoader
-                    succesHandler={imgSuccesHandler}
-                    errorHandler={imgErrorHandler}
-                  />
-                  {img && (
-                    <Avatar
-                      className={classes.avatar}
-                      alt="User"
-                      src={`${API_FILE}files/${img}`}
-                    />
-                  )}
-                  {imgError && (
-                    <span className={classes.error}>
-                      Некорректно выбран файл!
-                    </span>
-                  )}
-                  <pre>{JSON.stringify(values, null, 2)}</pre>
-
+                  <Box className={classes.infoField}>
+                    <Box>
+                      <FileLoader
+                        succesHandler={imgSuccesHandler}
+                        errorHandler={imgErrorHandler}
+                      />
+                      {img && (
+                        <Avatar
+                          className={classes.avatar}
+                          alt="User"
+                          src={`${API_FILE}files/${img}`}
+                        />
+                      )}
+                    </Box>
+                    {imgError && (
+                      <span className={classes.error}>
+                        Некорректно выбран файл!
+                      </span>
+                    )}
+                  </Box>
                   <DialogActions>
                     <Button type="submit" variant="contained" color="primary">
                       confirm
