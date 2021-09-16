@@ -40,9 +40,25 @@ const Components = (): JSX.Element => {
     setConnectedToLobby(false);
   };
 
-  const onSubmit = ({ firstName, lastName, position, image, isObserver }) => {
+  const onSubmit = ({
+    first_name,
+    last_name,
+    position,
+    image,
+    is_observer,
+    is_master,
+    game,
+  }) => {
     console.log("onSubmit");
-    console.log(firstName, lastName, position, image, isObserver);
+    console.log(
+      first_name,
+      last_name,
+      position,
+      image,
+      is_observer,
+      is_master,
+      game,
+    );
     setConnectedToLobby(false);
   };
 
@@ -79,6 +95,7 @@ const Components = (): JSX.Element => {
         cancelFunc={cancelFunc}
         onSubmit={onSubmit}
         isMaster={false}
+        game={"12345"}
       />
       <h2>FileLoader</h2>
       <FileLoader succesHandler={fileLoadHandler} />
