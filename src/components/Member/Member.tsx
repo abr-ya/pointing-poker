@@ -9,6 +9,8 @@ import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import { makeStyles } from "@material-ui/core";
 import classes from "./Member.module.scss";
 
+const API_FILE = process.env.API_FILE;
+
 const useStyles = makeStyles({
   card: {
     maxWidth: 300,
@@ -22,26 +24,23 @@ const useStyles = makeStyles({
 });
 
 export interface IMember {
-  id: number;
+  id: string;
   name: string;
   surname: string;
   position: string;
   avatar: string;
 }
 
-const Member = ({
-  id,
-  name,
-  surname,
-  position,
-  avatar,
-}: IMember): JSX.Element => {
+const Member = ({ name, surname, position, avatar }: IMember): JSX.Element => {
   const cl = useStyles();
   return (
     <Grid item md={4}>
       <Card className={cl.card}>
         <div className={classes.container}>
-          <Avatar src={avatar} className={cl.avatar}></Avatar>
+          <Avatar
+            src={`${API_FILE}files/${avatar}`}
+            className={cl.avatar}
+          ></Avatar>
           <div className={classes.info}>
             <Typography variant="h5" className={classes.name}>
               {name} {surname}
