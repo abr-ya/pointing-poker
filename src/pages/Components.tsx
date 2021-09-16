@@ -5,6 +5,7 @@ import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
 import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
+import MembersList from "../components/MembersList/MembersListContainer";
 
 const cardValues = [
   "0",
@@ -20,6 +21,61 @@ const cardValues = [
   "89",
   "add",
 ];
+
+// const users = [
+//   {
+//     id: 1,
+//     name: "David",
+//     surname: "Blane",
+//     position: "senior software engineer",
+//     avatar:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Elon_Musk_2015.jpg/327px-Elon_Musk_2015.jpg",
+//   },
+//   {
+//     id: 2,
+//     name: "Dayana",
+//     surname: "Ross",
+//     position: "junior software engineer",
+//     avatar:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Elon_Musk_2015.jpg/327px-Elon_Musk_2015.jpg",
+//   },
+//   {
+//     id: 3,
+//     name: "Daniel",
+//     surname: "Horn",
+//     position: "",
+//     avatar:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Elon_Musk_2015.jpg/327px-Elon_Musk_2015.jpg",
+//   },
+//   {
+//     id: 4,
+//     name: "Mark",
+//     surname: "Single",
+//     position: "senior software engineer",
+//     avatar: "",
+//   },
+//   {
+//     id: 5,
+//     name: "Jane",
+//     surname: "Ring",
+//     position: "software engineer",
+//     avatar: "",
+//   },
+//   {
+//     id: 6,
+//     name: "Larry",
+//     surname: "King",
+//     position: "junior software engineer",
+//     avatar: "",
+//   },
+//   {
+//     id: 7,
+//     name: "Fill",
+//     surname: "",
+//     position: "QA engineer",
+//     avatar: "",
+//   },
+// ];
 
 const Components = (): JSX.Element => {
   const useStyles = makeStyles(() =>
@@ -118,6 +174,8 @@ const Components = (): JSX.Element => {
       >
         {cards}
       </Grid>
+      <h2>Members</h2>
+      <MembersList />
     </div>
   );
 };
