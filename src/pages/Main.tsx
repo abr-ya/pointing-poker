@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     marginLeft: 20,
   },
   create: {
-    width: 200,
+    width: 180,
   },
 });
 
@@ -28,7 +28,65 @@ const Main = (): JSX.Element => {
   return (
     <div className="container">
       <Paper elevation={3} className={classes.paper}>
-        <Grid container direction="column" md={12} spacing={10}>
+        <Grid container direction="column" spacing={10} alignItems="center">
+          <Grid
+            item
+            container
+            direction="row"
+            md={12}
+            xs={6}
+            justifyContent="center"
+            className={cl.logo}
+          >
+            <img alt="Logo" src="images/Logo.png" className={classes.img} />
+            <div className={classes.title}>
+              <h1 className={classes.title__string1}>Poker</h1>
+              <h1 className={classes.title__string2}>Planning</h1>
+            </div>
+          </Grid>
+          <Grid item md={12} xs={6}>
+            <h3 className={classes.green}>Start your planning:</h3>
+            <ButtonGroup>
+              <Typography variant="body1" className={cl.create}>
+                Create session:
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                className={cl.btn}
+                onClick={() => console.log("clicked!")}
+              >
+                Start your game
+              </Button>
+            </ButtonGroup>
+          </Grid>
+          <Grid item md={12} xs={6}>
+            <h3 className={classes.green}>OR:</h3>
+            <Typography variant="body1">
+              Connect to lobby by <span className={classes.green}>URL:</span>
+            </Typography>
+            <ButtonGroup>
+              <input></input>
+              <Button
+                variant="contained"
+                color="primary"
+                className={cl.btn}
+                onClick={() => console.log("clicked!")}
+              >
+                Connect
+              </Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
+  );
+};
+
+export default Main;
+
+{
+  /* <Grid container direction="column" md={12} spacing={10}>
           <Grid
             item
             container
@@ -110,10 +168,5 @@ const Main = (): JSX.Element => {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-    </div>
-  );
-};
-
-export default Main;
+        </Grid> */
+}
