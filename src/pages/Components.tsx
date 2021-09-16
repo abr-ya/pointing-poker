@@ -11,7 +11,6 @@ const Components = (): JSX.Element => {
   };
   const [open, setOpen] = useState(false);
   const [issueIsOpen, setIssueOpen] = useState(false);
-  const [connectedToLobby, setConnectedToLobby] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,11 +28,21 @@ const Components = (): JSX.Element => {
     setIssueOpen(false);
   };
 
+  // Connect to lobby
+  const [connectedToLobby, setConnectedToLobby] = useState(false);
+
   const confirmFunc = () => {
+    console.log("confirm Function");
     setConnectedToLobby(true);
   };
 
   const cancelFunc = () => {
+    setConnectedToLobby(false);
+  };
+
+  const onSubmit = ({ firstName, lastName, position, image, isObserver }) => {
+    console.log("onSubmit");
+    console.log(firstName, lastName, position, image, isObserver);
     setConnectedToLobby(false);
   };
 
@@ -68,6 +77,8 @@ const Components = (): JSX.Element => {
         connectedToLobby={connectedToLobby}
         confirmFunc={confirmFunc}
         cancelFunc={cancelFunc}
+        onSubmit={onSubmit}
+        isMaster={false}
       />
       <h2>FileLoader</h2>
       <FileLoader succesHandler={fileLoadHandler} />
