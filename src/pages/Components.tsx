@@ -4,6 +4,9 @@ import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
 import FileLoader from "../components/FileLoader/FileLoader";
+import axios from "axios";
+
+const API_FILE_USER = process.env.API_FILE_USER;
 
 const Components = (): JSX.Element => {
   const butonClickHandler = () => {
@@ -40,27 +43,28 @@ const Components = (): JSX.Element => {
     setConnectedToLobby(false);
   };
 
-  const onSubmit = ({
-    first_name,
-    last_name,
-    position,
-    image,
-    is_observer,
-    is_master,
-    game,
-  }) => {
+  const onSubmit = (data) => {
+    // axios
+    //   .post(API_FILE_USER, data, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log("success!");
+    //     console.log(response.data);
+    //     console.log(response.status);
+    //     console.log(response.statusText);
+    //     console.log(response.headers);
+    //     console.log(response.config);
+    //     onSubmit(data);
+    //   });
     console.log("onSubmit");
-    console.log(
-      first_name,
-      last_name,
-      position,
-      image,
-      is_observer,
-      is_master,
-      game,
-    );
+    console.log(data);
     setConnectedToLobby(false);
   };
+
+  // ConnectToLobby end
 
   const fileLoadHandler = (name: string) => {
     console.log("загрузили файл", name, "(Components, fileLoadHandler)");

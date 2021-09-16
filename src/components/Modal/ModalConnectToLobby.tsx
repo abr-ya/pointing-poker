@@ -139,30 +139,39 @@ const ModalConnectToLobby = ({
           <Formik
             initialValues={InitialValues}
             validationSchema={SignupValidation}
-            onSubmit={(values) => {
-              // onSubmit(values);
+            onSubmit={async (values, { resetForm }) => {
               const data: IPostData = {
                 ...values,
                 image: img,
                 is_master: isMaster,
                 game: game,
               };
-              axios
-                .post(API_FILE_USER, data, {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                })
-                .then((response) => {
-                  console.log("success!");
-                  console.log(response.data);
-                  console.log(response.status);
-                  console.log(response.statusText);
-                  console.log(response.headers);
-                  console.log(response.config);
-                  onSubmit(data);
-                });
+              await onSubmit(data);
+              resetForm();
             }}
+            // onSubmit(values);
+            //   const data: IPostData = {
+            //     ...values,
+            //     image: img,
+            //     is_master: isMaster,
+            //     game: game,
+            //   };
+            //   axios
+            //     .post(API_FILE_USER, data, {
+            //       headers: {
+            //         "Content-Type": "application/json",
+            //       },
+            //     })
+            //     .then((response) => {
+            //       console.log("success!");
+            //       console.log(response.data);
+            //       console.log(response.status);
+            //       console.log(response.statusText);
+            //       console.log(response.headers);
+            //       console.log(response.config);
+            //       onSubmit(data);
+            //     });
+            // }}
           >
             {({ values, handleChange, handleBlur }) => {
               return (
