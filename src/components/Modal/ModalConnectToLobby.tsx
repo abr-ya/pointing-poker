@@ -12,8 +12,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import FileLoader from "../FileLoader/FileLoader";
 import { Formik, Form } from "formik";
+import axios from "axios";
 
-const API_FILE = process.env.API_FILE;
+const API_FILE = process.env.API_FILE_USER;
 
 const useStyles = makeStyles({
   switcher: {
@@ -40,11 +41,12 @@ interface IModalConnectToLobby {
 }
 
 export interface IUserInfo {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   position: string;
-  isObserver: boolean;
+  is_observer: boolean;
   image: string;
+  game: string;
 }
 
 const ModalConnectToLobby = ({
@@ -53,6 +55,7 @@ const ModalConnectToLobby = ({
   cancelFunc,
   onSubmit,
   isMaster,
+  game,
 }: IModalConnectToLobby): JSX.Element => {
   const classes = useStyles();
   const [img, setImg] = useState(null);
@@ -87,15 +90,48 @@ const ModalConnectToLobby = ({
         <DialogContent>
           <Formik
             initialValues={{
-              firstName: "",
-              lastName: "",
+              first_name: "",
+              last_name: "",
               position: "",
-              isObserver: false,
+              is_observer: false,
               image: "",
             }}
             onSubmit={(values) => {
-              onSubmit(values);
+              // onSubmit(values);
+              axios
+                .post(
+                  API_FILE,
+                  { ...values, is_master: isMaster, image: "123.jpg" },
+                  {
+                    headers: {
+                      // "Access-Control-Allow-Origin": "*",
+                      "Content-Type": "application/json",
+                    },
+                  },
+                )
+                .then((response) => {
+                  //setSubmitionCompleted(true);
+                  console.log("success!");
+                  console.log(response.data);
+                  console.log(response.status);
+                  console.log(response.statusText);
+                  console.log(response.headers);
+                  console.log(response.config);
+                });
             }}
+            //
+
+            // {
+            //   "first_name": "Leanne",
+            //   "last_name": "Graham",
+            //   "position": "Junior QA",
+            //   "image": "image303.jpg",
+            //   "is_observer": true,
+            //   "is_master": true,
+            //   "game": "TVasX8"
+            // }
+
+            //
           >
             {({ values, handleChange, handleBlur }) => {
               return (
@@ -110,8 +146,8 @@ const ModalConnectToLobby = ({
                         control={
                           <Switch
                             color="primary"
-                            name="isObserver"
-                            checked={values.isObserver}
+                            name="is_observer"
+                            checked={values.is_observer}
                             onChange={handleChange}
                           />
                         }
@@ -126,8 +162,8 @@ const ModalConnectToLobby = ({
                     color="secondary"
                     fullWidth
                     margin="normal"
-                    name="firstName"
-                    value={values.firstName}
+                    name="first_name"
+                    value={values.first_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -137,8 +173,8 @@ const ModalConnectToLobby = ({
                     color="secondary"
                     fullWidth
                     margin="normal"
-                    name="lastName"
-                    value={values.lastName}
+                    name="last_name"
+                    value={values.last_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
