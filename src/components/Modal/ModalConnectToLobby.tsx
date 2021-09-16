@@ -14,7 +14,8 @@ import FileLoader from "../FileLoader/FileLoader";
 import { Formik, Form } from "formik";
 import axios from "axios";
 
-const API_FILE = process.env.API_FILE_USER;
+const API_FILE_USER = process.env.API_FILE_USER;
+const API_FILE = process.env.API_FILE;
 
 const useStyles = makeStyles({
   switcher: {
@@ -36,18 +37,37 @@ interface IModalConnectToLobby {
   connectedToLobby: boolean;
   confirmFunc: () => void;
   cancelFunc: () => void;
-  onSubmit: (values: IUserInfo) => void;
+  onSubmit: (values: IPostData) => void;
   isMaster: boolean;
+  game: string;
 }
 
 export interface IUserInfo {
   first_name: string;
   last_name: string;
   position: string;
-  is_observer: boolean;
   image: string;
+  is_observer: boolean;
+}
+export interface IPostData {
+  first_name: string;
+  last_name: string;
+  position: string;
+  image: string;
+  is_observer: boolean;
+  is_master: boolean;
   game: string;
 }
+
+// {
+//   "first_name": "Leanne",
+//   "last_name": "Graham",
+//   "position": "Junior QA",
+//   "image": "image303.jpg",
+//   "is_observer": true,
+//   "is_master": true,
+//   "game": "TVasX8"
+// }
 
 const ModalConnectToLobby = ({
   connectedToLobby,
@@ -98,40 +118,28 @@ const ModalConnectToLobby = ({
             }}
             onSubmit={(values) => {
               // onSubmit(values);
+              const data: IPostData = {
+                ...values,
+                image: img,
+                is_master: isMaster,
+                game: game,
+              };
               axios
-                .post(
-                  API_FILE,
-                  { ...values, is_master: isMaster, image: "123.jpg" },
-                  {
-                    headers: {
-                      // "Access-Control-Allow-Origin": "*",
-                      "Content-Type": "application/json",
-                    },
+                .post(API_FILE_USER, data, {
+                  headers: {
+                    "Content-Type": "application/json",
                   },
-                )
+                })
                 .then((response) => {
-                  //setSubmitionCompleted(true);
                   console.log("success!");
                   console.log(response.data);
                   console.log(response.status);
                   console.log(response.statusText);
                   console.log(response.headers);
                   console.log(response.config);
+                  onSubmit(data);
                 });
             }}
-            //
-
-            // {
-            //   "first_name": "Leanne",
-            //   "last_name": "Graham",
-            //   "position": "Junior QA",
-            //   "image": "image303.jpg",
-            //   "is_observer": true,
-            //   "is_master": true,
-            //   "game": "TVasX8"
-            // }
-
-            //
           >
             {({ values, handleChange, handleBlur }) => {
               return (
@@ -204,10 +212,6 @@ const ModalConnectToLobby = ({
                   <pre>{JSON.stringify(values, null, 2)}</pre>
 
                   <DialogActions>
-                    {/* <ButtonPrim
-                          text="Confirm"
-                          handler={onSubmit}
-                        ></ButtonPrim> */}
                     <Button type="submit" variant="contained" color="primary">
                       confirm
                     </Button>
