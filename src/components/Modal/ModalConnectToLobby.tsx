@@ -11,8 +11,9 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import FileLoader from "../FileLoader/FileLoader";
-import { Formik, Form } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import axios from "axios";
+import * as Yup from "yup";
 
 const API_FILE_USER = process.env.API_FILE_USER;
 const API_FILE = process.env.API_FILE;
@@ -30,6 +31,9 @@ const useStyles = makeStyles({
   avatar: {
     width: 100,
     height: 100,
+  },
+  error: {
+    color: "red",
   },
 });
 
@@ -59,15 +63,13 @@ export interface IPostData {
   game: string;
 }
 
-// {
-//   "first_name": "Leanne",
-//   "last_name": "Graham",
-//   "position": "Junior QA",
-//   "image": "image303.jpg",
-//   "is_observer": true,
-//   "is_master": true,
-//   "game": "TVasX8"
-// }
+const SignupValidation = Yup.object().shape({
+  first_name: Yup.string()
+    .min(2, "Too Short!")
+    .max(70, "Too Long!")
+    .required("Required"),
+  last_name: Yup.string().min(2, "Too Short!").max(70, "Too Long!"),
+});
 
 const ModalConnectToLobby = ({
   connectedToLobby,
@@ -116,6 +118,7 @@ const ModalConnectToLobby = ({
               is_observer: false,
               image: "",
             }}
+            validationSchema={SignupValidation}
             onSubmit={(values) => {
               // onSubmit(values);
               const data: IPostData = {
@@ -165,15 +168,20 @@ const ModalConnectToLobby = ({
                     </FormGroup>
                   )}
                   <TextField
+                    // error={errors.first_name}
                     label="Your first name:"
                     variant="outlined"
                     color="secondary"
-                    fullWidth
                     margin="normal"
                     name="first_name"
                     value={values.first_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                  />
+                  <ErrorMessage
+                    component="span"
+                    className={classes.error}
+                    name="first_name"
                   />
                   <TextField
                     label="Your last name:"
@@ -185,6 +193,11 @@ const ModalConnectToLobby = ({
                     value={values.last_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                  />
+                  <ErrorMessage
+                    component="span"
+                    className={classes.error}
+                    name="last_name"
                   />
                   <TextField
                     label="Your job position:"
@@ -208,7 +221,11 @@ const ModalConnectToLobby = ({
                       src={`${API_FILE}files/${img}`}
                     />
                   )}
-                  {imgError && <span>Некорректно выбран файл - красным!</span>}
+                  {imgError && (
+                    <span className={classes.error}>
+                      Некорректно выбран файл!
+                    </span>
+                  )}
                   <pre>{JSON.stringify(values, null, 2)}</pre>
 
                   <DialogActions>
