@@ -9,3 +9,6 @@ tests/**/*.jsx
 .env
 yarn.lock
 package-lock.json
+
+.vscode
+.gitattributes
