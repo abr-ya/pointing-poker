@@ -26,6 +26,12 @@ const theme = createTheme({
         fontSize: "18px",
       },
     },
+    MuiDialogActions: {
+      root: {
+        padding: "16px 24px",
+        justifyContent: "space-between",
+      },
+    },
   },
 });
 

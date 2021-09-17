@@ -8,7 +8,10 @@ interface IFileLoader {
   errorHandler?: (text: string) => void;
 }
 
-const FileLoader = ({ succesHandler, errorHandler }: IFileLoader): JSX.Element => {
+const FileLoader = ({
+  succesHandler,
+  errorHandler,
+}: IFileLoader): JSX.Element => {
   const onUploadProgress = (event) => {
     console.log("loaded", event.loaded, "total", event.total);
   };
