@@ -48,7 +48,6 @@ interface IModalConnectToLobby {
   isOpen: boolean;
   confirmFunc: (data?: any) => void;
   cancelFunc: () => void;
-  onSubmit: (data: IUserFormData) => void;
 }
 
 interface IUserFormData {

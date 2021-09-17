@@ -54,7 +54,7 @@ const Main = (): JSX.Element => {
                 variant="contained"
                 color="primary"
                 className={cl.btn}
-                onClick={() => console.log("clicked!")}
+                onClick={() => console.log("Start clicked!")}
               >
                 Start your game
               </Button>
@@ -71,7 +71,7 @@ const Main = (): JSX.Element => {
                 variant="contained"
                 color="primary"
                 className={cl.btn}
-                onClick={() => console.log("clicked!")}
+                onClick={() => console.log("Connect clicked!")}
               >
                 Connect
               </Button>

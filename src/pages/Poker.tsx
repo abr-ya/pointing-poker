@@ -1,15 +1,49 @@
 import React from "react";
+import { IGame } from "../interfaces";
+import { Main, Lobby, Game, Result } from "./index";
+import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
+import Footer from "../components/Layout/Footer";
 
-const Poker = (): JSX.Element => {
-  
+interface IPoker {
+  game: IGame;
+  goToLobby: () => void;
+  goToGame: () => void;
+  goToResult: () => void;
+}
+
+const Poker = ({
+  game,
+  goToLobby,
+  goToGame,
+  goToResult,
+}: IPoker): JSX.Element => {
+  let Component = Main; // default to order page
+  switch (game.status) {
+    case "lobby":
+      Component = Lobby;
+      break;
+    case "game":
+      Component = Game;
+      break;
+    case "result":
+      Component = Result;
+      break;
+  }
 
   return (
     <div className="container">
-      <h1>Poker page</h1>
+      <h1>Poker</h1>
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit
-        a rem id quae officiis distinctio ipsa, quidem nisi amet eos?
+        На этой странице будут проходить все стадии игры. Main - обновить
+        страницу)
       </p>
+      <h2>Временные кнопки для тестов</h2>
+      <ButtonPrim text="lobby" handler={goToLobby} />
+      <ButtonPrim text="game" handler={goToGame} />
+      <ButtonPrim text="result" handler={goToResult} />
+      <p>Текущая стадия: {game.status}</p>
+      <Component />
+      <Footer />
     </div>
   );
 };
