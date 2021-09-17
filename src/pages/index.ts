@@ -1,6 +1,6 @@
 import About from "./About";
-import Home from "./Home";
+import Main from "./Main";
 import Error404 from "./Error404";
 import Components from "./Components";
 
-export { About, Home, Error404, Components };
+export { About, Main, Error404, Components };

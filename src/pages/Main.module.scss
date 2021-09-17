@@ -1,0 +1,39 @@
+.paper {
+    height: 100vh;
+}
+
+.img {
+    width: 104px;
+    height: 104px;
+}
+
+.title {
+        margin-left: 20px;
+        &__string1{
+            position: relative;
+        }
+        &__string1::after{
+            content: '';
+            width: 3px;
+            height: 150px;
+            left: 80px;
+            top: -24px;
+            background-color: #49494950;
+            display: block;
+            position: absolute;
+            transform: rotate(75deg);
+        }
+        &__string2{
+            margin-left: 75px;
+        }   
+    }
+
+.green {
+    color: #66999B;
+}
+
+h3.green {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
