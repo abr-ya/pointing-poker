@@ -7,6 +7,7 @@ import FileLoader from "../components/FileLoader/FileLoader";
 import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
 import MembersList from "../components/MembersList/MembersListContainer";
+import Footer from "../components/Layout/Footer";
 
 const cardValues = [
   "0",
@@ -137,6 +138,7 @@ const Components = (): JSX.Element => {
       </Grid>
       <h2>Members</h2>
       <MembersList />
+      <Footer />
     </div>
   );
 };
