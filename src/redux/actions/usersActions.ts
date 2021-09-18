@@ -1,5 +1,8 @@
 import { createCustomAction } from "typesafe-actions"; // createAction - без payload
-import { SET_LOADING } from "./usersTypes"; // SET_USERS
+
+// types
+// const SET_USERS = "SET_USERS";
+const SET_LOADING = "SET_LOADING";
 
 // export const setMovie = createCustomAction(SET_MOVIE, (data: any) => ({
 //   payload: data,

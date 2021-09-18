@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import classes from "./nav.scss";
 
 const Nav = (): JSX.Element => {
-  const title = "Planning Poker";
+  const title = "Planning Poker - рабочее меню))";
   const links = [
-    { name: "Main", link: "/", exact: true },
+    { name: "Poker", link: "/", exact: true },
     { name: "About", link: "/about", exact: false },
     { name: "Components", link: "/test", exact: false },
   ];
