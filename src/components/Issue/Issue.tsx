@@ -9,7 +9,8 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 import classes from "./Issue.module.scss";
-import { status, isMaster } from "../../interfaces";
+import { RootStateType } from "../../redux/ReduxProvider";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   card: {
@@ -25,6 +26,8 @@ export interface IIssue {
 
 const Issue = ({ issueText, priority }: IIssue): JSX.Element => {
   const cl = useStyles();
+  const status = useSelector((state: RootStateType) => state.game.status);
+  const isMaster = useSelector((state: RootStateType) => state.currUser.is_master);
 
   //const status = "lobby";
   //const isMaster = true;

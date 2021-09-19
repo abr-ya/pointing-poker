@@ -3,7 +3,8 @@ import Grid, { GridDirection, GridSpacing } from "@material-ui/core/Grid/Grid";
 import Issue from "../Issue/Issue";
 import { IIssue } from "../Issue/Issue";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { status, isMaster } from "../../interfaces";
+import { RootStateType } from "../../redux/ReduxProvider";
+import { useSelector } from "react-redux";
 
 interface IIsueList {
   data: IIssue[];
@@ -11,6 +12,10 @@ interface IIsueList {
 }
 
 const IssueList = ({ data, loading }: IIsueList): JSX.Element => {
+  const status = useSelector((state: RootStateType) => state.game.status);
+  const isMaster = useSelector(
+    (state: RootStateType) => state.currUser.is_master,
+  );
   const dir: GridDirection = status === "lobby" ? "row" : "column";
   const spacing: GridSpacing = status === "lobby" ? 2 : 4;
 
