@@ -24,6 +24,3 @@ export interface IGame {
   current_task: number;
   settings: IGameSettings;
 }
-
-export const status = "lobby";
-export const isMaster = false;

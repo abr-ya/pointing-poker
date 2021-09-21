@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import game from "./gameReducer";
 import users from "./usersReducer";
-import currUser from "./currUserReducer";
+import currentUser from "./currentUserReducer";
 
 const reducers = combineReducers({
   game,
   users,
-  currUser,
+  currentUser,
 });
 
 export default reducers;

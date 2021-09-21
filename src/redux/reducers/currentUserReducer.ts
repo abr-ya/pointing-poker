@@ -2,7 +2,7 @@ import { ActionType, getType } from "typesafe-actions";
 import * as actions from "../actions/usersActions";
 import { IUser } from "../../interfaces";
 
-const currUser: IUser = {
+const currentUser: IUser = {
   id: "DVasX8",
   first_name: "David",
   last_name: "Blaim",
@@ -13,9 +13,12 @@ const currUser: IUser = {
   game: "TVasX8",
 };
 
-export type currUserActions = ActionType<typeof actions>;
+export type currentUserActions = ActionType<typeof actions>;
 
-const currUserReducer = (state = currUser, action: currUserActions): IUser => {
+const currentUserReducer = (
+  state = currentUser,
+  action: currentUserActions,
+): IUser => {
   switch (action.type) {
     case getType(actions.setLoading):
       return { ...state };
@@ -26,4 +29,4 @@ const currUserReducer = (state = currUser, action: currUserActions): IUser => {
   }
 };
 
-export default currUserReducer;
+export default currentUserReducer;

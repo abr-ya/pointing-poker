@@ -27,7 +27,9 @@ export interface IIssue {
 const Issue = ({ issueText, priority }: IIssue): JSX.Element => {
   const cl = useStyles();
   const status = useSelector((state: RootStateType) => state.game.status);
-  const isMaster = useSelector((state: RootStateType) => state.currUser.is_master);
+  const isMaster = useSelector(
+    (state: RootStateType) => state.currentUser.is_master,
+  );
 
   //const status = "lobby";
   //const isMaster = true;

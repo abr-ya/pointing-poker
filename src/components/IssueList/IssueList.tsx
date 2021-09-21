@@ -14,21 +14,16 @@ interface IIsueList {
 const IssueList = ({ data, loading }: IIsueList): JSX.Element => {
   const status = useSelector((state: RootStateType) => state.game.status);
   const isMaster = useSelector(
-    (state: RootStateType) => state.currUser.is_master,
+    (state: RootStateType) => state.currentUser.is_master,
   );
   const dir: GridDirection = status === "lobby" ? "row" : "column";
   const spacing: GridSpacing = status === "lobby" ? 2 : 4;
 
   const makeIssues = (): IIssue[] => {
-    const issues = data.map((item) => ({
-      issueText: item.issueText,
-      priority: item.priority,
-      id: item.id,
-    }));
     if (isMaster === true) {
-      issues.push({ issueText: "Create new Issue", priority: "", id: 0 });
+      data.push({ issueText: "Create new Issue", priority: "", id: 0 });
     }
-    return issues;
+    return data;
   };
 
   return loading ? (
