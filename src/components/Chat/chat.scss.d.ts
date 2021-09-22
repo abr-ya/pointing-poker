@@ -6,6 +6,7 @@ declare namespace ChatScssNamespace {
     messageInner: string;
     messageList: string;
     messageSender: string;
+    my: string;
     wrapper: string;
   }
 }

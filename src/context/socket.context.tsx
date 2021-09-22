@@ -1,13 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
-import { SOCKET_URL } from "./config/default";
 import EVENTS from "./config/events";
+
+const SOCKET_URL = process.env.CHAT_URL;
 
 interface Context {
   socket: Socket;
   username?: string;
   setUsername: any;
-  messages?: { message: string; time: string; username: string }[];
+  messages?: {
+    message: string;
+    time: string;
+    username: string;
+    isMy?: boolean;
+  }[];
   setMessages: any;
   roomId?: string;
   rooms: any;
@@ -23,7 +29,7 @@ const SocketContext = createContext<Context>({
   messages: [],
 });
 
-function SocketsProvider(props: any) {
+const SocketsProvider = (props: any): JSX.Element => {
   const [username, setUsername] = useState("");
   const [roomId, setRoomId] = useState("");
   const [rooms, setRooms] = useState({});
@@ -41,12 +47,12 @@ function SocketsProvider(props: any) {
 
   socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
     setRoomId(value);
-
     setMessages([]);
   });
 
   useEffect(() => {
     socket.on(EVENTS.SERVER.ROOM_MESSAGE, ({ message, username, time }) => {
+      console.log("socket-context", "newMes:", message);
       if (!document.hasFocus()) {
         document.title = "New message...";
       }
@@ -69,7 +75,7 @@ function SocketsProvider(props: any) {
       {...props}
     />
   );
-}
+};
 
 export const useSockets = () => useContext(SocketContext);
 

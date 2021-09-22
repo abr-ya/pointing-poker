@@ -8,6 +8,7 @@ interface IRoomConnector {
 
 interface IRoom {
   name: string;
+  id: string;
 }
 
 const RoomConnector = ({ roomName }: IRoomConnector): JSX.Element => {
@@ -16,8 +17,9 @@ const RoomConnector = ({ roomName }: IRoomConnector): JSX.Element => {
     const roomsArray: IRoom[] = Object.values(rooms);
     console.log(roomsArray);
     if (roomsArray.some((room) => room.name === roomName)) {
-      console.log("подключаемся!");
-      joinRoom(roomName);
+      const idForJoin = roomsArray.find((room) => room.name === roomName).id;
+      console.log("подключаемся!", roomName, idForJoin);
+      joinRoom(idForJoin);
     } else {
       console.log("создаем!");
       createRoom(roomName);
@@ -34,7 +36,7 @@ const RoomConnector = ({ roomName }: IRoomConnector): JSX.Element => {
     socket.emit(EVENTS.CLIENT.JOIN_ROOM, roomName);
   };
 
-  return <div>{roomId || "нет id комнаты"}</div>;
+  return <div>{`roomId: ${roomId}` || "нет id комнаты"}</div>;
 };
 
 export default RoomConnector;

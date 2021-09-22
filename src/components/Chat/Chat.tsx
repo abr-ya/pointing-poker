@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import EVENTS from "../../context/config/events";
 import { useSockets } from "../../context/socket.context";
+import { Button } from "@material-ui/core";
 import styles from "./chat.scss";
+import cn from "classnames";
 
-function MessagesContainer() {
-  const { socket, messages, roomId, username, setMessages } = useSockets();
+interface IChat {
+  username: string;
+}
+
+const Chat = ({ username }: IChat): JSX.Element => {
+  const { socket, messages, roomId, setMessages } = useSockets();
   const newMessageRef = useRef(null);
   const messageEndRef = useRef(null);
 
@@ -12,7 +18,8 @@ function MessagesContainer() {
     console.log("chat!", socket);
   }, []);
 
-  function handleSendMessage() {
+  const handleSendMessage = (e) => {
+    e.preventDefault();
     const message = newMessageRef.current.value;
 
     if (!String(message).trim()) {
@@ -30,14 +37,16 @@ function MessagesContainer() {
         username: "You",
         message,
         time: `${date.getHours()}:${date.getMinutes()}`,
+        isMy: true,
       },
     ]);
 
     newMessageRef.current.value = "";
-  }
+  };
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    console.log("messages", messages);
   }, [messages]);
 
   if (!roomId) {
@@ -47,9 +56,12 @@ function MessagesContainer() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.messageList}>
-        {messages.map(({ message, username, time }, index) => {
+        {messages.map(({ message, username, time, isMy }, index) => {
           return (
-            <div key={index} className={styles.message}>
+            <div
+              key={index}
+              className={cn(styles.message, { [styles.my]: isMy })}
+            >
               <div key={index} className={styles.messageInner}>
                 <span className={styles.messageSender}>
                   {username} - {time}
@@ -62,15 +74,15 @@ function MessagesContainer() {
         <div ref={messageEndRef} />
       </div>
       <div className={styles.messageBox}>
-        <textarea
-          rows={1}
-          placeholder="Tell us what you are thinking"
-          ref={newMessageRef}
-        />
-        <button onClick={handleSendMessage}>SEND</button>
+        <form onSubmit={handleSendMessage}>
+          <input placeholder="your message ..." ref={newMessageRef} />
+          <Button type="submit" variant="contained" color="primary">
+            send
+          </Button>
+        </form>
       </div>
     </div>
   );
-}
+};
 
-export default MessagesContainer;
+export default Chat;
