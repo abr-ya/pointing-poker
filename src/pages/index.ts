@@ -1,4 +1,4 @@
-import About from "./About";
+import About from "./AboutContainer";
 import Poker from "./PokerContainer";
 import Error404 from "./Error404";
 import Components from "./Components";

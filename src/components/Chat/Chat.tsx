@@ -20,7 +20,7 @@ const Chat = ({ username }: IChat): JSX.Element => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    const message = newMessageRef.current.value;
+    const message: string = newMessageRef.current.value;
 
     if (!String(message).trim()) {
       return;
@@ -31,6 +31,7 @@ const Chat = ({ username }: IChat): JSX.Element => {
 
     const date = new Date();
 
+    // ToDo: не передавать сеттер, а сделать добавление и прокидывать его
     setMessages([
       ...messages,
       {

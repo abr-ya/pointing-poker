@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import EVENTS from "../../context/config/events";
 import { useSockets } from "../../context/socket.context";
+import { IRoom } from "../../context/socket.context";
 
 interface IRoomConnector {
   roomName: string;
-}
-
-interface IRoom {
-  name: string;
-  id: string;
 }
 
 const RoomConnector = ({ roomName }: IRoomConnector): JSX.Element => {

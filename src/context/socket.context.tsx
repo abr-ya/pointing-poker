@@ -4,19 +4,26 @@ import EVENTS from "./config/events";
 
 const SOCKET_URL = process.env.CHAT_URL;
 
+export interface IRoom {
+  name: string;
+  id: string;
+}
+
+interface IMessage {
+  message: string;
+  time: string;
+  username: string;
+  isMy?: boolean;
+}
+
 interface Context {
   socket: Socket;
   username?: string;
-  setUsername: any;
-  messages?: {
-    message: string;
-    time: string;
-    username: string;
-    isMy?: boolean;
-  }[];
-  setMessages: any;
+  setUsername: (name: string) => void;
+  messages: IMessage[];
+  setMessages: (data: IMessage[]) => void;
   roomId?: string;
-  rooms: any;
+  rooms: { [key: string]: IRoom };
 }
 
 const socket = io(SOCKET_URL);
