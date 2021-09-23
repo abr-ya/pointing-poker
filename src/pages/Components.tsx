@@ -8,16 +8,7 @@ import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
 import MembersList from "../components/MembersList/MembersListContainer";
 import Footer from "../components/Layout/Footer";
-import { IIssue } from "../components/Issue/Issue";
-import IssueList from "../components/IssueList/IssueList";
-
-const data: IIssue[] = [
-  { issueText: "1", priority: "1", id: 1 },
-  { issueText: "2", priority: "3", id: 2 },
-  { issueText: "4", priority: "5", id: 3 },
-  { issueText: "6", priority: "7", id: 4 },
-  { issueText: "8", priority: "9", id: 5 },
-];
+import IssueList from "../components/IssueList/IssueListContainer";
 
 const cardValues = [
   "0",
@@ -149,7 +140,7 @@ const Components = (): JSX.Element => {
       <h2>Members</h2>
       <MembersList />
       <h2>Issues</h2>
-      <IssueList data={data} loading={false} />
+      <IssueList />
       <Footer />
     </div>
   );
