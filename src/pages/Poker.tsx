@@ -17,7 +17,7 @@ const Poker = ({
   goToGame,
   goToResult,
 }: IPoker): JSX.Element => {
-  let Component = Main; // default to order page
+  let Component: React.FC = Main; // default to order page
   switch (game.status) {
     case "lobby":
       Component = Lobby;

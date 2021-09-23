@@ -1,17 +1,22 @@
 import React from "react";
-
-import classes from "./Main.module.scss";
+import classes from "./main.scss";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { ButtonGroup } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap"; // ToDo - почему не Material?
+import ButtonPrim from "../../components/ButtonPrim/ButtonPrim";
+
+interface IMain {
+  newGameSaga: () => void;
+}
 
 const useStyles = makeStyles({
   logo: {
     marginTop: 50,
   },
+  // ToDo надо или нет?
   btn: {
     width: 200,
   },
@@ -23,8 +28,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Main = (): JSX.Element => {
+const Main = ({ newGameSaga }: IMain): JSX.Element => {
   const cl = useStyles();
+
   return (
     <div className="container">
       <Paper elevation={3} className={classes.paper}>
@@ -50,14 +56,7 @@ const Main = (): JSX.Element => {
               <Typography variant="body1" className={cl.create}>
                 Create session:
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                className={cl.btn}
-                onClick={() => console.log("Start clicked!")}
-              >
-                Start your game
-              </Button>
+              <ButtonPrim text="Start your game" handler={newGameSaga} />
             </ButtonGroup>
           </Grid>
           <Grid item md={12} xs={6}>

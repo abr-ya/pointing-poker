@@ -44,7 +44,7 @@ const SocketsProvider = (props: any): JSX.Element => {
 
   useEffect(() => {
     window.onfocus = function () {
-      document.title = "Chat app";
+      document.title = "Planning Poker App";
     };
   }, []);
 
