@@ -19,8 +19,9 @@ interface IGameSettings {
   cards?: (number | string)[];
 }
 export interface IGame {
-  id: string;
+  id?: string;
   status: "main" | "lobby" | "game" | "result";
   current_task: number;
   settings: IGameSettings;
+  loading?: boolean;
 }
