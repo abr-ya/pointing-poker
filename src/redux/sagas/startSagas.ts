@@ -29,7 +29,7 @@ function* connectGameSaga(
       // всё хорошо
       yield put(gameActions.setGame(response[0]));
       console.log(
-        "connectGameSaga: подключились к игре - должны попасть в лобби",
+        "connectGameSaga: подключились к игре - теперь надо создать юзера?",
       );
     } else {
       // здесь обработать - что-то пошло не так

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import classes from "./main.scss";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -6,10 +6,12 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { ButtonGroup } from "react-bootstrap"; // ToDo - почему не Material?
 import ButtonPrim from "../../components/ButtonPrim/ButtonPrim";
+import ModalCreateUser from "../../components/Modal/ModalCreateUser";
 
 interface IMain {
   newGameSaga: () => void;
   connectGameSaga: (id: string) => void;
+  gameID: string | undefined;
 }
 
 const useStyles = makeStyles({
@@ -28,15 +30,35 @@ const useStyles = makeStyles({
   },
 });
 
-const Main = ({ newGameSaga, connectGameSaga }: IMain): JSX.Element => {
+const Main = ({ newGameSaga, connectGameSaga, gameID }: IMain): JSX.Element => {
   const cl = useStyles();
   const gameIdRef = useRef(null);
 
   const gameConnectHandler = () => {
-    console.log("пытаемся подключиться к игре", gameIdRef.current.value);
     connectGameSaga(gameIdRef.current.value);
     gameIdRef.current.value = "";
   };
+
+  // CreateUser
+  const [isCreateUserOpen, setIsCreateUserOpen] = useState(false);
+
+  const cancelFunc = () => {
+    setIsCreateUserOpen(false);
+  };
+
+  const confirmFunc = (data) => {
+    console.log("onSubmit");
+    console.log(data);
+    setIsCreateUserOpen(false);
+  };
+  // CreateUser end
+
+  useEffect(() => {
+    if (gameID) {
+      console.log("MainPage: gameID", gameID, "время создавать пользователя!");
+      setIsCreateUserOpen(true);
+    }
+  }, [gameID]);
 
   return (
     <div className="container">
@@ -78,6 +100,11 @@ const Main = ({ newGameSaga, connectGameSaga }: IMain): JSX.Element => {
           </Grid>
         </Grid>
       </Paper>
+      <ModalCreateUser
+        isOpen={isCreateUserOpen}
+        confirmFunc={confirmFunc}
+        cancelFunc={cancelFunc}
+      />
     </div>
   );
 };

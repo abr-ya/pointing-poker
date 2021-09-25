@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     minWidth: "600px",
   },
 });
-interface IModalConnectToLobby {
+interface IModalCreateUser {
   isOpen: boolean;
   confirmFunc: (data?: any) => void;
   cancelFunc: () => void;
@@ -74,11 +74,11 @@ const InitialValues = {
   image: "",
 };
 
-const ModalConnectToLobby = ({
+const ModalCreateUser = ({
   isOpen,
   confirmFunc,
   cancelFunc,
-}: IModalConnectToLobby): JSX.Element => {
+}: IModalCreateUser): JSX.Element => {
   const classes = useStyles();
   const [img, setImg] = useState(null);
   const [imgError, setImgError] = useState(false);
@@ -225,4 +225,4 @@ const ModalConnectToLobby = ({
   );
 };
 
-export default ModalConnectToLobby;
+export default ModalCreateUser;
