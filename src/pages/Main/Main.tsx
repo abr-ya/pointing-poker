@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./main.scss";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { ButtonGroup } from "react-bootstrap"; // ToDo - почему не Material?
@@ -10,6 +9,7 @@ import ButtonPrim from "../../components/ButtonPrim/ButtonPrim";
 
 interface IMain {
   newGameSaga: () => void;
+  connectGameSaga: (id: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -28,8 +28,15 @@ const useStyles = makeStyles({
   },
 });
 
-const Main = ({ newGameSaga }: IMain): JSX.Element => {
+const Main = ({ newGameSaga, connectGameSaga }: IMain): JSX.Element => {
   const cl = useStyles();
+  const gameIdRef = useRef(null);
+
+  const gameConnectHandler = () => {
+    console.log("пытаемся подключиться к игре", gameIdRef.current.value);
+    connectGameSaga(gameIdRef.current.value);
+    gameIdRef.current.value = "";
+  };
 
   return (
     <div className="container">
@@ -62,18 +69,11 @@ const Main = ({ newGameSaga }: IMain): JSX.Element => {
           <Grid item md={12} xs={6}>
             <h3 className={classes.green}>OR:</h3>
             <Typography variant="body1">
-              Connect to lobby by <span className={classes.green}>URL:</span>
+              Connect to lobby by <span className={classes.green}>ID:</span>
             </Typography>
             <ButtonGroup>
-              <input></input>
-              <Button
-                variant="contained"
-                color="primary"
-                className={cl.btn}
-                onClick={() => console.log("Connect clicked!")}
-              >
-                Connect
-              </Button>
+              <input placeholder="Game ID" ref={gameIdRef} />
+              <ButtonPrim text="Connect" handler={gameConnectHandler} />
             </ButtonGroup>
           </Grid>
         </Grid>

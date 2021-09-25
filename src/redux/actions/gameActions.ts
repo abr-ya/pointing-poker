@@ -10,12 +10,20 @@ const GO_TO_RESULT = "GO_TO_RESULT";
 
 // sagaTypes
 export const NEW_GAME_SAGA = "NEW_GAME_SAGA";
+export const CONNECT_GAME_SAGA = "CONNECT_GAME_SAGA";
 
 export const setGame = createCustomAction(SET_GAME, (data: IGame) => ({
   payload: data,
 }));
 
 export const newGameSaga = createAction(NEW_GAME_SAGA)();
+
+export const connectGameSaga = createCustomAction(
+  CONNECT_GAME_SAGA,
+  (id: string) => ({
+    payload: id,
+  }),
+);
 
 export const setLoading = createCustomAction(SET_LOADING, (flag: boolean) => ({
   payload: flag,
