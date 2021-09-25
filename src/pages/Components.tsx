@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
 import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
-import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
+import ModalCreateUser from "../components/Modal/ModalCreateUser";
 import FileLoader from "../components/FileLoader/FileLoader";
 import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
@@ -58,19 +58,19 @@ const Components = (): JSX.Element => {
     setIssueOpen(false);
   };
 
-  // Connect to lobby
-  const [isConnectToLobbyOpen, setIsConnectToLobbyOpen] = useState(false);
+  // CreateUser
+  const [isCreateUserOpen, setisCreateUserOpen] = useState(false);
 
   const cancelFunc = () => {
-    setIsConnectToLobbyOpen(false);
+    setisCreateUserOpen(false);
   };
 
   const confirmFunc = (data) => {
     console.log("onSubmit");
     console.log(data);
-    setIsConnectToLobbyOpen(false);
+    setisCreateUserOpen(false);
   };
-  // ConnectToLobby end
+  // CreateUser end
 
   const fileLoadHandler = (name: string) => {
     console.log("загрузили файл", name, "(Components, fileLoadHandler)");
@@ -113,13 +113,13 @@ const Components = (): JSX.Element => {
         yesFunc={openIssue}
         noFunc={closeIssue}
       />
-      <h2>Модальное окно (Connect to lobby)</h2>
+      <h2>Модальное окно (Create User)</h2>
       <ButtonPrim
-        text="Connect to lobby"
-        handler={() => setIsConnectToLobbyOpen(true)}
+        text="Create User"
+        handler={() => setisCreateUserOpen(true)}
       />
-      <ModalConnectToLobby
-        isOpen={isConnectToLobbyOpen}
+      <ModalCreateUser
+        isOpen={isCreateUserOpen}
         confirmFunc={confirmFunc}
         cancelFunc={cancelFunc}
       />

@@ -3,7 +3,9 @@ import Main from "./Main";
 import { RootStateType } from "../../redux/ReduxProvider";
 import { newGameSaga, connectGameSaga } from "../../redux/actions/gameActions";
 
-const mapStateToProps = (state: RootStateType) => ({});
+const mapStateToProps = (state: RootStateType) => ({
+  gameID: state.game.id,
+});
 
 const mapDispatchToProps = {
   newGameSaga,
