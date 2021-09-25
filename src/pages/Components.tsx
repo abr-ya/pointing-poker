@@ -9,6 +9,8 @@ import PokerCard from "../components/PokerCard/PokerCard";
 import MembersList from "../components/MembersList/MembersListContainer";
 import Footer from "../components/Layout/Footer";
 import IssueList from "../components/IssueList/IssueListContainer";
+import { useSockets } from "../context/socket.context";
+import EVENTS from "../context/config/events";
 
 const cardValues = [
   "0",
@@ -26,6 +28,7 @@ const cardValues = [
 ];
 
 const Components = (): JSX.Element => {
+  const { socket, roomId } = useSockets();
   const useStyles = makeStyles(() =>
     createStyles({
       pokerCardContainer: {
@@ -40,7 +43,6 @@ const Components = (): JSX.Element => {
     console.log("Это был клик по кнопке!");
   };
   const [open, setOpen] = useState(false);
-  const [issueIsOpen, setIssueOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,14 +50,6 @@ const Components = (): JSX.Element => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const openIssue = () => {
-    setIssueOpen(true);
-  };
-
-  const closeIssue = () => {
-    setIssueOpen(false);
   };
 
   // CreateUser
@@ -71,6 +65,21 @@ const Components = (): JSX.Element => {
     setisCreateUserOpen(false);
   };
   // CreateUser end
+
+  // CreateTask
+  const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+
+  const createTaskCancelFunction = () => {
+    setIsCreateTaskOpen(false);
+  };
+
+  const createTaskConfirmFunction = (data) => {
+    console.log("createTaskConfirmFunction");
+    console.log(data);
+    socket.emit(EVENTS.CLIENT.CREATE_TASK, { roomId, ...data });
+    setIsCreateTaskOpen(false);
+  };
+  // CreateTask end
 
   const fileLoadHandler = (name: string) => {
     console.log("загрузили файл", name, "(Components, fileLoadHandler)");
@@ -108,10 +117,14 @@ const Components = (): JSX.Element => {
         noFunc={handleClose}
       />
       <h2>Модальное окно (Create Issue)</h2>
+      <ButtonPrim
+        text="Create Issue"
+        handler={() => setIsCreateTaskOpen(true)}
+      />
       <ModalCreateIssue
-        issueIsOpen={issueIsOpen}
-        yesFunc={openIssue}
-        noFunc={closeIssue}
+        issueIsOpen={isCreateTaskOpen}
+        yesFunc={createTaskConfirmFunction}
+        noFunc={createTaskCancelFunction}
       />
       <h2>Модальное окно (Create User)</h2>
       <ButtonPrim
