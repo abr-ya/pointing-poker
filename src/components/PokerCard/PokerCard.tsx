@@ -58,7 +58,7 @@ const PokerCard = ({
           <div
             className={classes.cardBack}
             style={{
-              // backgroundImage: `url(${process.env.PUBLIC_URL + '/image.png'})`
+              // TODO: loading covers backgroundImage: `url(${process.env.PUBLIC_URL + '/image.png'})`
               backgroundImage: `url(/covers/${coverImage})`,
             }}
             onClick={() => handleCardClick(coverImage, false)}

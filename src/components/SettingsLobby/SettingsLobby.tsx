@@ -101,24 +101,6 @@ interface ISettingsProps {
 const SettingsLobby = ({ saveSettings }: ISettingsProps): JSX.Element => {
   const classes = useStyles();
 
-  // const [settings, setSettings] = useState<ISettings>({
-  //   masterAsPlayer: false,
-  //   changingCard: false,
-  //   timerNeeded: true,
-  //   scoreType: "story-point",
-  //   scoreTypeShort: "sp",
-  //   cardValues: [],
-  // });
-
-  // settings: {
-  //   is_master_player: true,
-  //   is_auto_card_open: true,
-  //   score_type: "story point",
-  //   score_type_short: "SP",
-  //   round_time: 120,
-  //   cards: [1, 2, 3, 5, "?", "coffee"],
-  // },
-
   const InitialValues: ISettings = {
     is_master_player: false,
     is_auto_card_open: true,
@@ -129,22 +111,6 @@ const SettingsLobby = ({ saveSettings }: ISettingsProps): JSX.Element => {
     cover: "card-back-1.jpg",
     cards: [1, 2, 3, 5, "?", "coffee"],
   };
-
-  // const renderCovers = (cover: string): JSX.Element[] => {
-  //   const covers = cardCovers.map((elem: string): JSX.Element => {
-  //     console.log("elem = ", elem, "cover = ", cover, "\n");
-  //     return (
-  //       <PokerCard
-  //         cardSizeClass="bigCard"
-  //         key={elem}
-  //         frontCard={false}
-  //         coverImage={`/covers/${elem}`}
-  //         activeClassCard={`${elem === cover ? "active" : ""}`}
-  //       />
-  //     );
-  //   });
-  //   return covers;
-  // };
 
   const formSubmitHandler = (values: ISettings) => {
     saveSettings(values);
