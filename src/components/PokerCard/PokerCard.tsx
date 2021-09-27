@@ -2,52 +2,31 @@ import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CreateTwoToneIcon from "@material-ui/icons/CreateTwoTone";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import cn from "classnames";
 import classes from "./PokerCard.module.scss";
-import LocalCafeOutlinedIcon from "@material-ui/icons/LocalCafeOutlined";
+import CardValue from "./CardValue";
 
 interface IPokerCardProps {
   cardValue?: string | number;
   cardSizeClass?: string;
-  lobbyPokerCard?: boolean;
+  isLobbyCard?: boolean;
   frontCard?: boolean;
   coverImage?: string;
   activeClassCard?: string;
-  makeCoverActive?: (data: string) => void;
+  handleEditClick: (event, cardValue) => void;
+  handleCardClick: (coverImage: string, frontCard: boolean) => void;
 }
 
 const PokerCard = ({
   cardValue = "",
   cardSizeClass = "bigCard",
-  lobbyPokerCard = false,
+  isLobbyCard = false,
   coverImage = "",
   frontCard = true,
   activeClassCard = "",
-  makeCoverActive,
+  handleEditClick,
+  handleCardClick,
 }: IPokerCardProps): JSX.Element => {
-  const handleEditClick = (
-    event: React.MouseEvent<HTMLElement>,
-    cardValue: string | number,
-  ): void => {
-    event.stopPropagation();
-    console.log("Button edit card ", cardValue);
-  };
-
-  const handleCardClick = (
-    cardValue: string | number,
-    isFront: boolean,
-  ): void => {
-    if (cardValue !== "add") {
-      console.log("Card click", cardValue);
-      if (!isFront) {
-        makeCoverActive(String(cardValue));
-      }
-    } else {
-      console.log("Add click");
-    }
-  };
-
   return (
     <Grid item className={classes.cardContainer}>
       <div
@@ -57,14 +36,14 @@ const PokerCard = ({
           [classes.activeCover]: activeClassCard === "active",
         })}
       >
-        {frontCard ? (
+        {frontCard && (
           <div
             className={cn(classes.cardFront, {
               [classes.addCard]: cardValue === "add",
             })}
             onClick={() => handleCardClick(cardValue, true)}
           >
-            {lobbyPokerCard && cardValue != "add" && (
+            {isLobbyCard && cardValue != "add" && (
               <IconButton
                 aria-label="edit card"
                 onClick={(event) => handleEditClick(event, cardValue)}
@@ -72,27 +51,10 @@ const PokerCard = ({
                 <CreateTwoToneIcon />
               </IconButton>
             )}
-
-            {cardValue != "add" ? (
-              cardValue != "coffee" ? (
-                <p className={classes.pokerCardValue}>{cardValue}</p>
-              ) : (
-                <LocalCafeOutlinedIcon
-                  aria-label="coffee card"
-                  fontSize="inherit"
-                  className={classes.pokerCardValue}
-                />
-              )
-            ) : (
-              <AddCircleOutlineIcon
-                aria-label="add new card"
-                fontSize="inherit"
-                htmlColor="#6b6b6b"
-                className={classes.addIcon}
-              />
-            )}
+            <CardValue cardValue={cardValue} />
           </div>
-        ) : (
+        )}
+        {!frontCard && (
           <div
             className={classes.cardBack}
             style={{

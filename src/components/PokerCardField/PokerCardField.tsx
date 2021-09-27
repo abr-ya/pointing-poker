@@ -1,7 +1,8 @@
 import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
 import AddCard from "../PokerCard/AddCard";
-import PokerCard from "../PokerCard/PokerCard";
+import LobbyCovers from "./LobbyCovers";
+import SettingsCards from "./SettingsCards";
 
 interface IPokerCardFieldProps {
   cardValues?: (string | number)[];
@@ -36,43 +37,31 @@ const PokerCardField = ({
 
   const [activeCover, setActive] = useState<string>(cover);
 
-  const renderCards = (): JSX.Element[] => {
-    const cards: JSX.Element[] = cardValues.map(
-      (elem: string | number): JSX.Element => {
-        return (
-          <PokerCard
-            cardValue={elem}
-            cardSizeClass="bigCard"
-            key={elem}
-            lobbyPokerCard
-          />
-        );
-      },
-    );
-    return cards;
-  };
-
   const makeCoverActive = (data: string): void => {
     setActive(data);
     saveActive(data);
   };
 
-  const renderCovers = (): JSX.Element[] => {
-    const covers: JSX.Element[] = coverImage.map(
-      (elem: string): JSX.Element => {
-        return (
-          <PokerCard
-            cardSizeClass="bigCard"
-            key={elem}
-            frontCard={false}
-            coverImage={elem}
-            activeClassCard={`${elem === activeCover ? "active" : ""}`}
-            makeCoverActive={makeCoverActive}
-          />
-        );
-      },
-    );
-    return covers;
+  const handleEditClick = (
+    event: React.MouseEvent<HTMLElement>,
+    cardValue: string | number,
+  ): void => {
+    event.stopPropagation();
+    console.log("Button edit card ", cardValue);
+  };
+
+  const handleCardClick = (
+    cardValue: string | number,
+    isFront: boolean,
+  ): void => {
+    if (cardValue !== "add") {
+      console.log("Card click", cardValue);
+      if (!isFront) {
+        makeCoverActive(String(cardValue));
+      }
+    } else {
+      console.log("Add click");
+    }
   };
 
   return (
@@ -84,9 +73,27 @@ const PokerCardField = ({
       alignItems="center"
       wrap="wrap"
     >
-      {frontCard && renderCards()}
-      {!frontCard && renderCovers()}
-      {isLobbyPage && <AddCard />}
+      {frontCard && (
+        <SettingsCards
+          cardValues={cardValues}
+          handleCardClick={handleCardClick}
+          handleEditClick={handleEditClick}
+        />
+      )}
+      {!frontCard && (
+        <LobbyCovers
+          coverImage={coverImage}
+          handleCardClick={handleCardClick}
+          handleEditClick={handleEditClick}
+          activeCover={activeCover}
+        />
+      )}
+      {isLobbyPage && (
+        <AddCard
+          handleCardClick={handleCardClick}
+          handleEditClick={handleEditClick}
+        />
+      )}
     </Grid>
   );
 };
