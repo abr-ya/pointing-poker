@@ -1,8 +1,14 @@
 import { combineReducers } from "redux";
-// import ... from "./...";
+import game from "./gameReducer";
+import users from "./usersReducer";
+import currentUser from "./currentUserReducer";
+import issues from "./issuesReducer";
 
 const reducers = combineReducers({
-  // здесь импортированные выше собираем вместе
+  game,
+  users,
+  currentUser,
+  issues,
 });
 
 export default reducers;
