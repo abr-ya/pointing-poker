@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
 import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
-import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
+import ModalCreateUser from "../components/Modal/ModalCreateUser";
 import FileLoader from "../components/FileLoader/FileLoader";
 import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
@@ -11,6 +11,10 @@ import Footer from "../components/Layout/Footer";
 import SettingsLobby, {
   ISettings,
 } from "../components/SettingsLobby/SettingsLobby";
+import IssueList from "../components/IssueList/IssueListContainer";
+import { useSockets } from "../context/socket.context";
+import EVENTS from "../context/config/events";
+
 
 const cardValues = [
   "0",
@@ -28,6 +32,7 @@ const cardValues = [
 ];
 
 const Components = (): JSX.Element => {
+  const { socket, roomId } = useSockets();
   const useStyles = makeStyles(() =>
     createStyles({
       pokerCardContainer: {
@@ -44,7 +49,6 @@ const Components = (): JSX.Element => {
     console.log("Это был клик по кнопке!");
   };
   const [open, setOpen] = useState(false);
-  const [issueIsOpen, setIssueOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,27 +58,34 @@ const Components = (): JSX.Element => {
     setOpen(false);
   };
 
-  const openIssue = () => {
-    setIssueOpen(true);
-  };
-
-  const closeIssue = () => {
-    setIssueOpen(false);
-  };
-
-  // Connect to lobby
-  const [isConnectToLobbyOpen, setIsConnectToLobbyOpen] = useState(false);
+  // CreateUser
+  const [isCreateUserOpen, setisCreateUserOpen] = useState(false);
 
   const cancelFunc = () => {
-    setIsConnectToLobbyOpen(false);
+    setisCreateUserOpen(false);
   };
 
   const confirmFunc = (data) => {
     console.log("onSubmit");
     console.log(data);
-    setIsConnectToLobbyOpen(false);
+    setisCreateUserOpen(false);
   };
-  // ConnectToLobby end
+  // CreateUser end
+
+  // CreateTask
+  const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+
+  const createTaskCancelFunction = () => {
+    setIsCreateTaskOpen(false);
+  };
+
+  const createTaskConfirmFunction = (data) => {
+    console.log("createTaskConfirmFunction");
+    console.log(data);
+    socket.emit(EVENTS.CLIENT.CREATE_TASK, { roomId, ...data });
+    setIsCreateTaskOpen(false);
+  };
+  // CreateTask end
 
   const saveSettings = (data: ISettings) => {
     setSettings(data);
@@ -118,18 +129,22 @@ const Components = (): JSX.Element => {
         noFunc={handleClose}
       />
       <h2>Модальное окно (Create Issue)</h2>
-      <ModalCreateIssue
-        issueIsOpen={issueIsOpen}
-        yesFunc={openIssue}
-        noFunc={closeIssue}
-      />
-      <h2>Модальное окно (Connect to lobby)</h2>
       <ButtonPrim
-        text="Connect to lobby"
-        handler={() => setIsConnectToLobbyOpen(true)}
+        text="Create Issue"
+        handler={() => setIsCreateTaskOpen(true)}
       />
-      <ModalConnectToLobby
-        isOpen={isConnectToLobbyOpen}
+      <ModalCreateIssue
+        issueIsOpen={isCreateTaskOpen}
+        yesFunc={createTaskConfirmFunction}
+        noFunc={createTaskCancelFunction}
+      />
+      <h2>Модальное окно (Create User)</h2>
+      <ButtonPrim
+        text="Create User"
+        handler={() => setisCreateUserOpen(true)}
+      />
+      <ModalCreateUser
+        isOpen={isCreateUserOpen}
         confirmFunc={confirmFunc}
         cancelFunc={cancelFunc}
       />
@@ -149,6 +164,8 @@ const Components = (): JSX.Element => {
       </Grid>
       <h2>Members</h2>
       <MembersList />
+      <h2>Issues</h2>
+      <IssueList />
       <SettingsLobby saveSettings={saveSettings} />
       <Button
         type="submit"

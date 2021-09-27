@@ -1,5 +1,5 @@
-declare namespace MainModuleScssNamespace {
-  export interface IMainModuleScss {
+declare namespace MainScssNamespace {
+  export interface IMainScss {
     green: string;
     img: string;
     paper: string;
@@ -9,9 +9,9 @@ declare namespace MainModuleScssNamespace {
   }
 }
 
-declare const MainModuleScssModule: MainModuleScssNamespace.IMainModuleScss & {
+declare const MainScssModule: MainScssNamespace.IMainScss & {
   /** WARNING: Only available when `css-loader` is used without `style-loader` or `mini-css-extract-plugin` */
-  locals: MainModuleScssNamespace.IMainModuleScss;
+  locals: MainScssNamespace.IMainScss;
 };
 
-export = MainModuleScssModule;
+export = MainScssModule;

@@ -1,15 +1,20 @@
 import React from "react";
+import Chat from "../components/Chat/Chat";
+import RoomConnector from "../components/Chat/RoomConnector";
 
-const About = (): JSX.Element => {
-  console.log("!");
+interface IAbout {
+  gameID: string;
+}
+
+const About = ({ gameID }: IAbout): JSX.Element => {
+  const tempUserName = "PokerPlayer";
 
   return (
     <div className="container">
       <h1>About page</h1>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit
-        a rem id quae officiis distinctio ipsa, quidem nisi amet eos?
-      </p>
+      <p>Здесь будет About page. Но пока что здесь чат.</p>
+      <RoomConnector roomName={gameID} />
+      <Chat username={tempUserName} />
     </div>
   );
 };
