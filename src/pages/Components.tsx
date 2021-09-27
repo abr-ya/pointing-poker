@@ -4,10 +4,13 @@ import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalConnectToLobby from "../components/Modal/ModalConnectToLobby";
 import FileLoader from "../components/FileLoader/FileLoader";
-import { createStyles, Grid, makeStyles } from "@material-ui/core";
+import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
 import PokerCard from "../components/PokerCard/PokerCard";
 import MembersList from "../components/MembersList/MembersListContainer";
 import Footer from "../components/Layout/Footer";
+import SettingsLobby, {
+  ISettings,
+} from "../components/SettingsLobby/SettingsLobby";
 
 const cardValues = [
   "0",
@@ -32,6 +35,8 @@ const Components = (): JSX.Element => {
       },
     }),
   );
+
+  const [settingsData, setSettings] = useState<ISettings>();
 
   const classes = useStyles();
 
@@ -71,14 +76,20 @@ const Components = (): JSX.Element => {
   };
   // ConnectToLobby end
 
+  const saveSettings = (data: ISettings) => {
+    setSettings(data);
+    console.log(data);
+  };
+
   const fileLoadHandler = (name: string) => {
     console.log("загрузили файл", name, "(Components, fileLoadHandler)");
   };
+
   const cards: JSX.Element[] = cardValues.map((elem: string): JSX.Element => {
     return (
       <PokerCard
         cardValue={elem}
-        cardSizeClass="smallPokerCard"
+        cardSizeClass="smallCard"
         key={elem}
         lobbyPokerCard
       />
@@ -138,6 +149,15 @@ const Components = (): JSX.Element => {
       </Grid>
       <h2>Members</h2>
       <MembersList />
+      <SettingsLobby saveSettings={saveSettings} />
+      <Button
+        type="submit"
+        form="settingsForm"
+        variant="contained"
+        color="primary"
+      >
+        Save settings
+      </Button>
       <Footer />
     </div>
   );
