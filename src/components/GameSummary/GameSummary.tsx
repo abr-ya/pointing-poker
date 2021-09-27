@@ -8,6 +8,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 import cn from "classnames";
 import React from "react";
+import Member from "../Member/Member";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,41 +38,51 @@ const useStyles = makeStyles(() =>
   }),
 );
 
+const MemberInfo = {
+  id: "DVasX8",
+  first_name: "David",
+  last_name: "Blaim",
+  position: "Junior",
+  image: "Elon_Musk_2015.jpg",
+  is_observer: false,
+  is_master: true,
+  game: "TVasX8",
+};
+
 interface IGameSummary {
-  masterID?: number; // ???
-  linkToLobby?: string; // ???
+  masterID?: string;
+  lobbyID?: string;
   role?: string;
+  handlerStartGame: () => void;
+  handlerCopyLink: () => void;
+  handlerCancelGame: () => void;
+  handlerExitGame: () => void;
 }
 
 const GameSummary = ({
-  masterID = 1,
-  linkToLobby = "http://planning.poker.com/1",
+  masterID = "DVasX8",
+  lobbyID = "http://planning.poker.com/1",
   role = "player",
+  handlerStartGame,
+  handlerCopyLink,
+  handlerCancelGame,
+  handlerExitGame,
 }: IGameSummary): JSX.Element => {
   const classes = useStyles();
-
-  const copyLink = (): void => {
-    console.log("Link copied");
-  };
-
-  const startGame = (): void => {
-    console.log("Start Game");
-  };
-
-  const canсelGame = (): void => {
-    console.log("Canсel Game");
-  };
-
-  const exitGame = (): void => {
-    console.log("Exit Game");
-  };
 
   return (
     <>
       <Typography variant="h5" align="left" gutterBottom>
         Scrum master:
       </Typography>
-      <p>Here will be card with Scrum master name {masterID}</p>
+      <Member
+        isMaster
+        id={masterID}
+        name={MemberInfo.first_name}
+        surname={MemberInfo.last_name}
+        position={MemberInfo.position}
+        avatar={MemberInfo.image}
+      />
       <Grid
         container
         className={cn(classes.form, {
@@ -91,7 +102,7 @@ const GameSummary = ({
         <Grid item className={classes.form} xs={12}>
           <TextField
             id="linkToLobby"
-            defaultValue={linkToLobby}
+            defaultValue={lobbyID}
             variant="outlined"
             size="small"
             fullWidth
@@ -101,7 +112,7 @@ const GameSummary = ({
             variant="contained"
             color="primary"
             size="large"
-            onClick={copyLink}
+            onClick={handlerCopyLink}
           >
             Copy
           </Button>
@@ -121,7 +132,7 @@ const GameSummary = ({
                 variant="contained"
                 color="primary"
                 size="large"
-                onClick={startGame}
+                onClick={handlerStartGame}
               >
                 Start game
               </Button>
@@ -131,7 +142,7 @@ const GameSummary = ({
                 variant="outlined"
                 color="primary"
                 size="large"
-                onClick={canсelGame}
+                onClick={handlerCancelGame}
               >
                 Cansel game
               </Button>
@@ -144,7 +155,7 @@ const GameSummary = ({
               variant="outlined"
               color="primary"
               size="large"
-              onClick={exitGame}
+              onClick={handlerExitGame}
             >
               Exit game
             </Button>
