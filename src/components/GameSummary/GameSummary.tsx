@@ -37,17 +37,17 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-interface IHeaderLobby {
+interface IGameSummary {
   masterID?: number; // ???
   linkToLobby?: string; // ???
   role?: string;
 }
 
-const HeaderLobby = ({
+const GameSummary = ({
   masterID = 1,
   linkToLobby = "http://planning.poker.com/1",
   role = "player",
-}: IHeaderLobby): JSX.Element => {
+}: IGameSummary): JSX.Element => {
   const classes = useStyles();
 
   const copyLink = (): void => {
@@ -155,4 +155,4 @@ const HeaderLobby = ({
   );
 };
 
-export default HeaderLobby;
+export default GameSummary;
