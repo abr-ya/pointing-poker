@@ -2,67 +2,67 @@ import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CreateTwoToneIcon from "@material-ui/icons/CreateTwoTone";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import cn from "classnames";
 import classes from "./PokerCard.module.scss";
+import CardValue from "./CardValue";
 
 interface IPokerCardProps {
-  cardValue: string;
+  cardValue?: string | number;
   cardSizeClass?: string;
-  lobbyPokerCard?: boolean;
+  isLobbyCard?: boolean;
+  frontCard?: boolean;
+  coverImage?: string;
+  activeClassCard?: string;
+  handleEditClick: (event, cardValue) => void;
+  handleCardClick: (coverImage: string | number, frontCard: boolean) => void;
 }
 
 const PokerCard = ({
-  cardValue,
+  cardValue = "",
   cardSizeClass = "bigCard",
-  lobbyPokerCard = false,
+  isLobbyCard = false,
+  coverImage = "",
+  frontCard = true,
+  activeClassCard = "",
+  handleEditClick,
+  handleCardClick,
 }: IPokerCardProps): JSX.Element => {
-  const handleEditClick = (
-    event: React.MouseEvent<HTMLElement>,
-    cardValue: string,
-  ): void => {
-    event.stopPropagation();
-    console.log("Button edit card ", cardValue);
-  };
-
-  const handleCardClick = (cardValue: string): void => {
-    if (cardValue !== "add") {
-      console.log("Card click", cardValue);
-    } else {
-      console.log("Add click");
-    }
-  };
-
   return (
-    <Grid item>
+    <Grid item className={classes.cardContainer}>
       <div
         className={cn(classes.pokerCard, {
-          [classes.lobbyCard]: lobbyPokerCard,
-          [classes.addCard]: cardValue === "add",
           [classes.bigCard]: cardSizeClass === "bigCard",
           [classes.smallCard]: cardSizeClass !== "bigCard",
+          [classes.activeCover]: activeClassCard === "active",
         })}
-        onClick={() => handleCardClick(cardValue)}
       >
-        {lobbyPokerCard && (
-          <IconButton
-            aria-label="edit card"
-            onClick={(event) => handleEditClick(event, cardValue)}
-            className={classes.editIcon}
+        {frontCard && (
+          <div
+            className={cn(classes.cardFront, {
+              [classes.addCard]: cardValue === "add",
+            })}
+            onClick={() => handleCardClick(cardValue, true)}
           >
-            <CreateTwoToneIcon />
-          </IconButton>
+            {isLobbyCard && cardValue != "add" && (
+              <IconButton
+                aria-label="edit card"
+                onClick={(event) => handleEditClick(event, cardValue)}
+              >
+                <CreateTwoToneIcon />
+              </IconButton>
+            )}
+            <CardValue cardValue={cardValue} />
+          </div>
         )}
-
-        {cardValue != "add" ? (
-          <p className={classes.pokerCardValue}>{cardValue}</p>
-        ) : (
-          <AddCircleOutlineIcon
-            aria-label="add new card"
-            fontSize="inherit"
-            htmlColor="#6b6b6b"
-            className={classes.addIcon}
-          />
+        {!frontCard && (
+          <div
+            className={classes.cardBack}
+            style={{
+              // TODO: loading covers backgroundImage: `url(${process.env.PUBLIC_URL + '/image.png'})`
+              backgroundImage: `url(/covers/${coverImage})`,
+            }}
+            onClick={() => handleCardClick(coverImage, false)}
+          ></div>
         )}
       </div>
     </Grid>

@@ -4,28 +4,15 @@ import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalCreateUser from "../components/Modal/ModalCreateUser";
 import FileLoader from "../components/FileLoader/FileLoader";
-import { createStyles, Grid, makeStyles } from "@material-ui/core";
-import PokerCard from "../components/PokerCard/PokerCard";
+import { Button, createStyles, makeStyles } from "@material-ui/core";
 import MembersList from "../components/MembersList/MembersListContainer";
 import Footer from "../components/Layout/Footer";
+import SettingsLobby, {
+  ISettings,
+} from "../components/SettingsLobby/SettingsLobby";
 import IssueList from "../components/IssueList/IssueListContainer";
 import { useSockets } from "../context/socket.context";
 import EVENTS from "../context/config/events";
-
-const cardValues = [
-  "0",
-  "1",
-  "2",
-  "3",
-  "5",
-  "8",
-  "13",
-  "21",
-  "34",
-  "55",
-  "89",
-  "add",
-];
 
 const Components = (): JSX.Element => {
   const { socket, roomId } = useSockets();
@@ -36,6 +23,8 @@ const Components = (): JSX.Element => {
       },
     }),
   );
+
+  const [settingsData, setSettings] = useState<ISettings>();
 
   const classes = useStyles();
 
@@ -81,19 +70,14 @@ const Components = (): JSX.Element => {
   };
   // CreateTask end
 
+  const saveSettings = (data: ISettings) => {
+    setSettings(data);
+    console.log(data);
+  };
+
   const fileLoadHandler = (name: string) => {
     console.log("загрузили файл", name, "(Components, fileLoadHandler)");
   };
-  const cards: JSX.Element[] = cardValues.map((elem: string): JSX.Element => {
-    return (
-      <PokerCard
-        cardValue={elem}
-        cardSizeClass="smallPokerCard"
-        key={elem}
-        lobbyPokerCard
-      />
-    );
-  });
 
   return (
     <div className="container">
@@ -138,22 +122,19 @@ const Components = (): JSX.Element => {
       />
       <h2>FileLoader</h2>
       <FileLoader succesHandler={fileLoadHandler} />
-
-      <h2>Poker Cards</h2>
-      <Grid
-        className={classes.pokerCardContainer}
-        container
-        spacing={6}
-        justifyContent="center"
-        alignItems="center"
-        wrap="wrap"
-      >
-        {cards}
-      </Grid>
       <h2>Members</h2>
       <MembersList />
       <h2>Issues</h2>
       <IssueList />
+      <SettingsLobby saveSettings={saveSettings} />
+      <Button
+        type="submit"
+        form="settingsForm"
+        variant="contained"
+        color="primary"
+      >
+        Save settings
+      </Button>
       <Footer />
     </div>
   );

@@ -1,11 +1,14 @@
 declare namespace PokerCardModuleScssNamespace {
   export interface IPokerCardModuleScss {
-    activePokerCard: string;
+    active: string;
+    activeCover: string;
     addCard: string;
     addIcon: string;
     bigCard: string;
+    cardBack: string;
+    cardContainer: string;
+    cardFront: string;
     editIcon: string;
-    lobbyCard: string;
     pokerCard: string;
     pokerCardValue: string;
     smallCard: string;
