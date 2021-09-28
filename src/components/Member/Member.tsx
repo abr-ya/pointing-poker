@@ -29,9 +29,16 @@ export interface IMember {
   surname: string;
   position: string;
   avatar: string;
+  isMaster?: boolean;
 }
 
-const Member = ({ name, surname, position, avatar }: IMember): JSX.Element => {
+const Member = ({
+  isMaster = false,
+  name,
+  surname,
+  position,
+  avatar,
+}: IMember): JSX.Element => {
   const cl = useStyles();
   return (
     <Grid item md={4}>
@@ -49,9 +56,11 @@ const Member = ({ name, surname, position, avatar }: IMember): JSX.Element => {
               {position}
             </Typography>
           </div>
-          <IconButton>
-            <NotInterestedIcon fontSize="large" />
-          </IconButton>
+          {!isMaster && (
+            <IconButton>
+              <NotInterestedIcon fontSize="large" />
+            </IconButton>
+          )}
         </div>
       </Card>
     </Grid>
