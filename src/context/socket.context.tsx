@@ -52,6 +52,10 @@ const SocketsProvider = (props: any): JSX.Element => {
     setRooms(value);
   });
 
+  socket.on(EVENTS.SERVER.TASKS, (value) => {
+    console.log("получены таски", value);
+  });
+
   socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
     setRoomId(value);
     setMessages([]);
