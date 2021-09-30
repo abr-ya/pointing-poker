@@ -30,14 +30,17 @@ export interface IMember {
   position: string;
   avatar: string;
   isMaster?: boolean;
+  handlerDeleteUser?: (id: string) => void;
 }
 
 const Member = ({
   isMaster = false,
+  id,
   name,
   surname,
   position,
   avatar,
+  handlerDeleteUser,
 }: IMember): JSX.Element => {
   const cl = useStyles();
   return (
@@ -57,7 +60,7 @@ const Member = ({
             </Typography>
           </div>
           {!isMaster && (
-            <IconButton>
+            <IconButton onClick={() => handlerDeleteUser(id)}>
               <NotInterestedIcon fontSize="large" />
             </IconButton>
           )}

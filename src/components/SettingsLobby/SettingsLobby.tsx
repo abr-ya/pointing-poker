@@ -13,6 +13,7 @@ import React from "react";
 import PokerCardField from "../PokerCardField/PokerCardFieldContainer";
 import classNames from "classnames";
 import { Formik, Form } from "formik";
+import { IGameSettings } from "../../interfaces";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,17 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: "15px",
       paddingBottom: "15px",
     },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
-    },
-    accordion: {
-      width: "100%",
-    },
-    table: {
-      minWidth: "500px",
-      width: "100%",
-    },
     pokerCardContainer: {
       width: "100%",
       marginBottom: "10px",
@@ -81,27 +71,17 @@ enum shortScoreType {
   "duration" = "DUR",
   "ideal-days" = "ID",
 }
-export interface ISettings {
-  is_master_player: boolean;
-  is_auto_card_open: boolean;
-  timerNeeded: boolean;
-  round_time: number;
-  score_type: string;
-  score_type_short: string;
-  cover: string;
-  cards: (string | number)[];
-}
 
 const cardCovers = ["card-back-1.jpg", "card-back-2.jpg", "card-back-3.jpg"];
 
 interface ISettingsProps {
-  saveSettings: (data?: ISettings) => void;
+  saveSettings: (data?: IGameSettings) => void;
 }
 
 const SettingsLobby = ({ saveSettings }: ISettingsProps): JSX.Element => {
   const classes = useStyles();
 
-  const InitialValues: ISettings = {
+  const InitialValues: IGameSettings = {
     is_master_player: false,
     is_auto_card_open: true,
     timerNeeded: false,
@@ -112,7 +92,7 @@ const SettingsLobby = ({ saveSettings }: ISettingsProps): JSX.Element => {
     cards: [1, 2, 3, 5, "?", "coffee"],
   };
 
-  const formSubmitHandler = (values: ISettings) => {
+  const formSubmitHandler = (values: IGameSettings) => {
     saveSettings(values);
   };
 
@@ -214,7 +194,6 @@ const SettingsLobby = ({ saveSettings }: ISettingsProps): JSX.Element => {
                   </FormControl>
                 </>
               )}
-              {/* duration, ideal days or story points */}
               <FormControl required className={classes.scoreAlign}>
                 <label
                   className={`${classes.label} ${classes.labelScore} MuiFormControlLabel-labelPlacementStart`}
