@@ -13,9 +13,12 @@ const useStyles = makeStyles({
 });
 
 export interface IIssue {
-  id: number;
+  id: string;
   issueText: string;
   priority: string;
+  handlerEditIssue?: (issueID: string) => void;
+  handlerDeleteIssue?: (issueID: string) => void;
+  handlerAddIssue?: () => void;
 }
 
 export interface IIssueProps extends IIssue {
@@ -24,10 +27,14 @@ export interface IIssueProps extends IIssue {
 }
 
 const Issue = ({
+  id,
   issueText,
   priority,
   isMaster,
   isLobby,
+  handlerEditIssue,
+  handlerDeleteIssue,
+  handlerAddIssue,
 }: IIssueProps): JSX.Element => {
   const cl = useStyles();
 
@@ -44,7 +51,14 @@ const Issue = ({
             </Typography>
           </div>
           {isMaster && (
-            <ManageButtons issueText={issueText} isLobby={isLobby} />
+            <ManageButtons
+              issueID={id}
+              issueText={issueText}
+              isLobby={isLobby}
+              handlerEditIssue={handlerEditIssue}
+              handlerDeleteIssue={handlerDeleteIssue}
+              handlerAddIssue={handlerAddIssue}
+            />
           )}
         </div>
       </Card>

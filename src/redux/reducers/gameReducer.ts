@@ -5,8 +5,19 @@ import { IGame } from "../../interfaces";
 const tempGame: IGame = {
   status: "main",
   current_task: 1,
-  settings: {},
+  settings: {
+    is_master_player: false,
+    is_auto_card_open: false,
+    timerNeeded: false,
+    round_time: 0,
+    score_type: "",
+    score_type_short: "",
+    cover: "",
+    cards: [],
+  },
   loading: false,
+  id: "asdrt45",
+  isChatOpen: false,
 };
 
 type gameActionsType = ActionType<typeof actions>;
@@ -23,6 +34,10 @@ const gameReducer = (state = tempGame, action: gameActionsType): IGame => {
       return { ...state, status: "game" };
     case getType(actions.goToResult):
       return { ...state, status: "result" };
+    case getType(actions.chatOpenClose):
+      return { ...state, isChatOpen: !state.isChatOpen };
+    case getType(actions.setSettings):
+      return { ...state, settings: action.payload };
     default:
       return state;
   }

@@ -20,6 +20,18 @@ const IssueList = ({
   const dir: GridDirection = isLobbyPage ? "row" : "column";
   const spacing: GridSpacing = isLobbyPage ? 2 : 4;
 
+  const handlerEditIssue = (issueID: string) => {
+    console.log("edit issue ID=", issueID);
+  };
+
+  const handlerDeleteIssue = (issueID: string) => {
+    console.log("delete issue ID=", issueID);
+  };
+
+  const handlerAddIssue = () => {
+    console.log("Add new issue");
+  };
+
   return loading ? (
     <CircularProgress />
   ) : (
@@ -32,16 +44,19 @@ const IssueList = ({
           priority={issue.priority}
           isMaster={isMaster}
           isLobby={isLobbyPage}
+          handlerEditIssue={handlerEditIssue}
+          handlerDeleteIssue={handlerDeleteIssue}
         />
       ))}
       {isMaster && (
         <Issue
-          id={0}
+          id={"0"}
           issueText={"Create new Issue"}
           key={0}
           priority={""}
           isMaster={isMaster}
           isLobby={isLobbyPage}
+          handlerAddIssue={handlerAddIssue}
         />
       )}
     </Grid>

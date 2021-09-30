@@ -9,16 +9,6 @@ type usersStateType = Readonly<{
 
 const tempUsers = [
   {
-    id: "DVasX8",
-    first_name: "David",
-    last_name: "Blaim",
-    position: "Junior",
-    image: "Elon_Musk_2015.jpg",
-    is_observer: false,
-    is_master: true,
-    game: "TVasX8",
-  },
-  {
     id: "8PykIx",
     first_name: "Dayana",
     last_name: "Ross",
@@ -26,6 +16,16 @@ const tempUsers = [
     image: "Elon_Musk_2015.jpg",
     is_observer: false,
     is_master: false,
+    game: "TVasX8",
+  },
+  {
+    id: "DVasX8",
+    first_name: "David",
+    last_name: "Blaim",
+    position: "Junior",
+    image: "Elon_Musk_2015.jpg",
+    is_observer: false,
+    is_master: true,
     game: "TVasX8",
   },
   {
