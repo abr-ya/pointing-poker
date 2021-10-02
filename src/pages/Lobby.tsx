@@ -1,5 +1,4 @@
 import {
-  Button,
   createStyles,
   Grid,
   makeStyles,
@@ -7,13 +6,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GameSummary from "../components/GameSummary/GameSummaryContainer";
 import IssueList from "../components/IssueList/IssueListContainer";
 import MembersList from "../components/MembersList/MembersListContainer";
 import SettingsLobby from "../components/SettingsLobby/SettingsLobby";
 import { IGameSettings } from "../interfaces";
 import { setSettings } from "../redux/actions/gameActions";
+import { RootStateType } from "../redux/ReduxProvider";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -32,6 +32,7 @@ const useStyles = makeStyles(() =>
 const Lobby = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const settings = useSelector((state: RootStateType) => state.game.settings);
 
   const handlerCopyLink = (): void => {
     console.log("Link copied");
@@ -39,6 +40,7 @@ const Lobby = (): JSX.Element => {
 
   const handlerStartGame = (): void => {
     console.log("Start Game");
+    console.log(settings);
   };
 
   const handlerCancelGame = (): void => {
@@ -116,14 +118,14 @@ const Lobby = (): JSX.Element => {
               Game Settings:
             </Typography>
             <SettingsLobby saveSettings={saveSettings} />
-            <Button
+            {/* <Button
               type="submit"
               form="settingsForm"
               variant="contained"
               color="primary"
             >
               Save settings
-            </Button>
+            </Button> */}
           </Grid>
         </Grid>
       </Paper>
