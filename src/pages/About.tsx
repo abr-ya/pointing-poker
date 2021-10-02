@@ -1,6 +1,5 @@
 import React from "react";
 import Chat from "../components/Chat/Chat";
-import RoomConnector from "../components/Chat/RoomConnector";
 
 interface IAbout {
   gameID: string;
@@ -8,12 +7,12 @@ interface IAbout {
 
 const About = ({ gameID }: IAbout): JSX.Element => {
   const tempUserName = "PokerPlayer";
+  console.log("About - запустим чат", gameID, tempUserName);
 
   return (
     <div className="container">
       <h1>About page</h1>
       <p>Здесь будет About page. Но пока что здесь чат.</p>
-      <RoomConnector roomName={gameID} />
       <Chat username={tempUserName} />
     </div>
   );

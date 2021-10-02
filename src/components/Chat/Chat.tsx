@@ -51,7 +51,7 @@ const Chat = ({ username }: IChat): JSX.Element => {
   }, [messages]);
 
   if (!roomId) {
-    return <div />;
+    return <div>ошибка: нет комнаты!</div>;
   }
 
   return (

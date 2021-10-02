@@ -62,6 +62,7 @@ const SocketsProvider = (props: any): JSX.Element => {
   });
 
   useEffect(() => {
+    console.log("socket change", socket.id);
     socket.on(EVENTS.SERVER.ROOM_MESSAGE, ({ message, username, time }) => {
       console.log("socket-context", "newMes:", message);
       if (!document.hasFocus()) {
@@ -70,7 +71,7 @@ const SocketsProvider = (props: any): JSX.Element => {
 
       setMessages((messages) => [...messages, { message, username, time }]);
     });
-  }, [socket]);
+  }, [socket, socket.id]);
 
   return (
     <SocketContext.Provider

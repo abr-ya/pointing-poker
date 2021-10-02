@@ -7,6 +7,8 @@ import { makeStyles } from "@material-ui/core";
 import { ButtonGroup } from "react-bootstrap"; // ToDo - почему не Material?
 import ButtonPrim from "../../components/ButtonPrim/ButtonPrim";
 import ModalCreateUser from "../../components/Modal/ModalCreateUser";
+import EVENTS from "../../context/config/events";
+import { useSockets } from "../../context/socket.context";
 
 interface IMain {
   newGameSaga: () => void;
@@ -31,8 +33,15 @@ const useStyles = makeStyles({
 });
 
 const Main = ({ newGameSaga, connectGameSaga, gameID }: IMain): JSX.Element => {
+  const { socket } = useSockets();
   const cl = useStyles();
   const gameIdRef = useRef(null);
+
+  const newGameHandler = () => {
+    console.log("создание игры - отправить на сервер и создать комнату?"); // выйти бы на уровень,
+    // когда это будет просто "создать комнату"
+    newGameSaga();
+  };
 
   const gameConnectHandler = () => {
     connectGameSaga(gameIdRef.current.value);
@@ -55,7 +64,12 @@ const Main = ({ newGameSaga, connectGameSaga, gameID }: IMain): JSX.Element => {
 
   useEffect(() => {
     if (gameID) {
-      console.log("MainPage: gameID", gameID, "время создавать пользователя!");
+      console.log(
+        "MainPage: gameID",
+        gameID,
+        "время создавать пользователя и комнату!",
+      );
+      socket.emit(EVENTS.CLIENT.CREATE_ROOM, gameID);
       setIsCreateUserOpen(true);
     }
   }, [gameID]);
@@ -85,7 +99,7 @@ const Main = ({ newGameSaga, connectGameSaga, gameID }: IMain): JSX.Element => {
               <Typography variant="body1" className={cl.create}>
                 Create session:
               </Typography>
-              <ButtonPrim text="Start your game" handler={newGameSaga} />
+              <ButtonPrim text="Start your game" handler={newGameHandler} />
             </ButtonGroup>
           </Grid>
           <Grid item md={12} xs={6}>
