@@ -16,7 +16,7 @@ const tempGame: IGame = {
     cards: [],
   },
   loading: false,
-  id: "asdrt45",
+  id: "",
   isChatOpen: false,
 };
 
