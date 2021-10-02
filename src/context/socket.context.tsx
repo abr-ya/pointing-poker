@@ -40,6 +40,7 @@ const SocketsProvider = (props: any): JSX.Element => {
   const [username, setUsername] = useState("");
   const [roomId, setRoomId] = useState("");
   const [rooms, setRooms] = useState({});
+  const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -48,21 +49,25 @@ const SocketsProvider = (props: any): JSX.Element => {
     };
   }, []);
 
-  socket.on(EVENTS.SERVER.ROOMS, (value) => {
-    setRooms(value);
-  });
-
-  socket.on(EVENTS.SERVER.TASKS, (value) => {
-    console.log("получены таски", value);
-  });
-
-  socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
-    setRoomId(value);
-    setMessages([]);
-  });
-
   useEffect(() => {
-    console.log("socket change", socket.id);
+    socket.on(EVENTS.SERVER.ROOMS, (value) => {
+      setRooms(value);
+    });
+
+    socket.on(EVENTS.SERVER.TASKS, (value) => {
+      console.log("получены таски", value);
+    });
+
+    socket.on(EVENTS.SERVER.USERS, (value) => {
+      console.log("пользователи комнаты", value);
+      setUsers(value);
+    });
+
+    socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
+      setRoomId(value);
+      setMessages([]);
+    });
+
     socket.on(EVENTS.SERVER.ROOM_MESSAGE, ({ message, username, time }) => {
       console.log("socket-context", "newMes:", message);
       if (!document.hasFocus()) {
@@ -71,7 +76,11 @@ const SocketsProvider = (props: any): JSX.Element => {
 
       setMessages((messages) => [...messages, { message, username, time }]);
     });
-  }, [socket, socket.id]);
+  }, [socket]);
+
+  useEffect(() => {
+    console.log("socket id change", socket.id);
+  }, [socket.id]);
 
   return (
     <SocketContext.Provider
@@ -83,6 +92,7 @@ const SocketsProvider = (props: any): JSX.Element => {
         roomId,
         messages,
         setMessages,
+        users,
       }}
       {...props}
     />
