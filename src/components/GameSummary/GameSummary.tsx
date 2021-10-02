@@ -8,6 +8,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 import cn from "classnames";
 import React from "react";
+import { IUser } from "../../interfaces";
 import Member from "../Member/Member";
 
 const useStyles = makeStyles(() =>
@@ -29,30 +30,19 @@ const useStyles = makeStyles(() =>
       display: "flex",
       flexDirection: "row",
     },
-    contMaster: {
+    containerMaster: {
       justifyContent: "space-between",
     },
-    contPlayer: {
+    containerPlayer: {
       justifyContent: "flex-end",
     },
   }),
 );
 
-const MemberInfo = {
-  id: "DVasX8",
-  first_name: "David",
-  last_name: "Blaim",
-  position: "Junior",
-  image: "Elon_Musk_2015.jpg",
-  is_observer: false,
-  is_master: true,
-  game: "TVasX8",
-};
-
 interface IGameSummary {
-  masterID?: string;
-  lobbyID?: string;
-  role?: string;
+  masterInfo: IUser;
+  gameID: string;
+  role: string;
   handlerStartGame: () => void;
   handlerCopyLink: () => void;
   handlerCancelGame: () => void;
@@ -60,8 +50,8 @@ interface IGameSummary {
 }
 
 const GameSummary = ({
-  masterID = "DVasX8",
-  lobbyID = "http://planning.poker.com/1",
+  masterInfo,
+  gameID,
   role = "player",
   handlerStartGame,
   handlerCopyLink,
@@ -77,11 +67,11 @@ const GameSummary = ({
       </Typography>
       <Member
         isMaster
-        id={masterID}
-        name={MemberInfo.first_name}
-        surname={MemberInfo.last_name}
-        position={MemberInfo.position}
-        avatar={MemberInfo.image}
+        id={masterInfo.id}
+        name={masterInfo.first_name}
+        surname={masterInfo.last_name}
+        position={masterInfo.position}
+        avatar={masterInfo.image}
       />
       <Grid
         container
@@ -102,7 +92,7 @@ const GameSummary = ({
         <Grid item className={classes.form} xs={12}>
           <TextField
             id="linkToLobby"
-            defaultValue={lobbyID}
+            defaultValue={gameID}
             variant="outlined"
             size="small"
             fullWidth
@@ -121,14 +111,16 @@ const GameSummary = ({
       <Grid
         container
         className={cn(classes.buttonCont, {
-          [classes.contMaster]: role === "master",
-          [classes.contPlayer]: role === "player",
+          [classes.containerMaster]: role === "master",
+          [classes.containerPlayer]: role === "player",
         })}
       >
         {role === "master" && (
           <>
             <Grid item>
               <Button
+                type="submit"
+                form="settingsForm"
                 variant="contained"
                 color="primary"
                 size="large"
@@ -144,7 +136,7 @@ const GameSummary = ({
                 size="large"
                 onClick={handlerCancelGame}
               >
-                Cansel game
+                Canсel game
               </Button>
             </Grid>
           </>

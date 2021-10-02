@@ -1,34 +1,134 @@
+import {
+  createStyles,
+  Grid,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import GameSummary from "../components/GameSummary/GameSummaryContainer";
 import IssueList from "../components/IssueList/IssueListContainer";
+import MembersList from "../components/MembersList/MembersListContainer";
+import SettingsLobby from "../components/SettingsLobby/SettingsLobby";
+import { IGameSettings } from "../interfaces";
+import { setSettings } from "../redux/actions/gameActions";
+import { RootStateType } from "../redux/ReduxProvider";
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    page: {
+      padding: "20px",
+    },
+    bold: {
+      fontWeight: "bold",
+    },
+    input: {
+      display: "none",
+    },
+  }),
+);
 
 const Lobby = (): JSX.Element => {
-  const copyLink = (): void => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const settings = useSelector((state: RootStateType) => state.game.settings);
+
+  const handlerCopyLink = (): void => {
     console.log("Link copied");
   };
 
-  const startGame = (): void => {
+  const handlerStartGame = (): void => {
     console.log("Start Game");
+    console.log(settings);
   };
 
-  const canсelGame = (): void => {
+  const handlerCancelGame = (): void => {
     console.log("Canсel Game");
   };
 
-  const exitGame = (): void => {
+  const handlerExitGame = (): void => {
     console.log("Exit Game");
+  };
+
+  const handlerDeleteUser = (userID: string) => {
+    console.log("delete user UserID =", userID);
+  };
+
+  // const [settingsData, setSettings] = useState<IGameSettings>();
+
+  const saveSettings = (data: IGameSettings) => {
+    dispatch(setSettings(data));
   };
 
   return (
     <div className="container">
-      <h1>Lobby page</h1>
-      <GameSummary
-        handlerCancelGame={canсelGame}
-        handlerCopyLink={copyLink}
-        handlerExitGame={exitGame}
-        handlerStartGame={startGame}
-      />
-      <IssueList />
+      <Paper elevation={3} className={classes.page}>
+        <Grid container direction="column" spacing={6}>
+          <Grid item>
+            <Typography
+              variant="h5"
+              component="h1"
+              align="center"
+              className={classes.bold}
+            >
+              Spring 23 planning (issues 13, 533, 5623, 3252, 6623, ...)
+            </Typography>
+          </Grid>
+          <Grid item>
+            <GameSummary
+              handlerCancelGame={handlerCancelGame}
+              handlerCopyLink={handlerCopyLink}
+              handlerExitGame={handlerExitGame}
+              handlerStartGame={handlerStartGame}
+            />
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="h5"
+              component="h3"
+              align="center"
+              className={classes.bold}
+              paragraph
+            >
+              Members:
+            </Typography>
+            <MembersList handlerDeleteUser={handlerDeleteUser} />
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="h5"
+              component="h3"
+              align="center"
+              className={classes.bold}
+              paragraph
+            >
+              Issues:
+            </Typography>
+            <IssueList />
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="h5"
+              component="h3"
+              align="center"
+              className={classes.bold}
+              paragraph
+            >
+              Game Settings:
+            </Typography>
+            <SettingsLobby saveSettings={saveSettings} />
+            {/* <Button
+              type="submit"
+              form="settingsForm"
+              variant="contained"
+              color="primary"
+            >
+              Save settings
+            </Button> */}
+          </Grid>
+        </Grid>
+      </Paper>
     </div>
   );
 };

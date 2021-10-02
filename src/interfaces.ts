@@ -10,13 +10,24 @@ export interface IUser {
   game?: string;
 }
 
-interface IGameSettings {
-  is_master_player?: boolean;
-  is_auto_card_open?: boolean;
-  score_type?: string;
-  score_type_short?: string;
-  round_time?: number;
-  cards?: (number | string)[];
+// interface IGameSettings {
+//   is_master_player?: boolean;
+//   is_auto_card_open?: boolean;
+//   score_type?: string;
+//   score_type_short?: string;
+//   round_time?: number;
+//   cards?: (number | string)[];
+// }
+
+export interface IGameSettings {
+  is_master_player: boolean;
+  is_auto_card_open: boolean;
+  timerNeeded: boolean;
+  round_time: number;
+  score_type: string;
+  score_type_short: string;
+  cover: string;
+  cards: (string | number)[];
 }
 export interface IGame {
   id?: string;
@@ -24,4 +35,5 @@ export interface IGame {
   current_task: number;
   settings: IGameSettings;
   loading?: boolean;
+  isChatOpen: boolean;
 }

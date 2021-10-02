@@ -1,7 +1,16 @@
 import React from "react";
 import axios from "axios";
+import { Button, createStyles, makeStyles } from "@material-ui/core";
 
 const API_FILE = process.env.API_FILE;
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    input: {
+      display: "none",
+    },
+  }),
+);
 
 interface IFileLoader {
   succesHandler: (name: string) => void;
@@ -12,6 +21,8 @@ const FileLoader = ({
   succesHandler,
   errorHandler,
 }: IFileLoader): JSX.Element => {
+  const classes = useStyles();
+
   const onUploadProgress = (event) => {
     console.log("loaded", event.loaded, "total", event.total);
   };
@@ -57,7 +68,18 @@ const FileLoader = ({
 
   return (
     <>
-      <input type="file" onChange={fileChangedHandler} />
+      <input
+        type="file"
+        onChange={fileChangedHandler}
+        className={classes.input}
+        id="upload-avatar"
+        accept="image/*"
+      />
+      <label htmlFor="upload-avatar">
+        <Button variant="contained" color="primary" component="span">
+          Upload image
+        </Button>
+      </label>
     </>
   );
 };

@@ -4,29 +4,14 @@ import ModalLobby from "../components/Modal/ModalLobby";
 import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 import ModalCreateUser from "../components/Modal/ModalCreateUser";
 import FileLoader from "../components/FileLoader/FileLoader";
-import { Button, createStyles, makeStyles } from "@material-ui/core";
-import MembersList from "../components/MembersList/MembersListContainer";
+import { Button } from "@material-ui/core";
 import Footer from "../components/Layout/Footer";
-import SettingsLobby, {
-  ISettings,
-} from "../components/SettingsLobby/SettingsLobby";
 import IssueList from "../components/IssueList/IssueListContainer";
 import { useSockets } from "../context/socket.context";
 import EVENTS from "../context/config/events";
 
 const Components = (): JSX.Element => {
   const { socket, roomId } = useSockets();
-  const useStyles = makeStyles(() =>
-    createStyles({
-      pokerCardContainer: {
-        width: "100%",
-      },
-    }),
-  );
-
-  const [settingsData, setSettings] = useState<ISettings>();
-
-  const classes = useStyles();
 
   const butonClickHandler = () => {
     console.log("Это был клик по кнопке!");
@@ -69,11 +54,6 @@ const Components = (): JSX.Element => {
     setIsCreateTaskOpen(false);
   };
   // CreateTask end
-
-  const saveSettings = (data: ISettings) => {
-    setSettings(data);
-    console.log(data);
-  };
 
   const fileLoadHandler = (name: string) => {
     console.log("загрузили файл", name, "(Components, fileLoadHandler)");
@@ -122,11 +102,8 @@ const Components = (): JSX.Element => {
       />
       <h2>FileLoader</h2>
       <FileLoader succesHandler={fileLoadHandler} />
-      <h2>Members</h2>
-      <MembersList />
       <h2>Issues</h2>
       <IssueList />
-      <SettingsLobby saveSettings={saveSettings} />
       <Button
         type="submit"
         form="settingsForm"

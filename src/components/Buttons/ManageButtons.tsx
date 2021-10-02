@@ -4,22 +4,35 @@ import AddIcon from "@material-ui/icons/Add";
 import EditButtons from "./EditButtons";
 
 interface IManageButtonsProps {
+  issueID: string;
   issueText: string;
   isLobby: boolean;
+  handlerEditIssue: (issueID: string) => void;
+  handlerDeleteIssue: (issueID: string) => void;
+  handlerAddIssue: () => void;
 }
 
 const ManageButtons = ({
+  issueID,
   issueText,
   isLobby,
+  handlerEditIssue,
+  handlerDeleteIssue,
+  handlerAddIssue,
 }: IManageButtonsProps): JSX.Element => {
   return (
     <>
       {issueText === "Create new Issue" ? (
-        <IconButton aria-label="edit issue">
+        <IconButton aria-label="add issue" onClick={() => handlerAddIssue()}>
           <AddIcon fontSize="large" />
         </IconButton>
       ) : (
-        <EditButtons isLobby={isLobby} />
+        <EditButtons
+          issueID={issueID}
+          isLobby={isLobby}
+          handlerEditIssue={handlerEditIssue}
+          handlerDeleteIssue={handlerDeleteIssue}
+        />
       )}
     </>
   );
