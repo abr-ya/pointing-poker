@@ -8,7 +8,7 @@ import { Button } from "@material-ui/core";
 import Footer from "../components/Layout/Footer";
 import IssueList from "../components/IssueList/IssueListContainer";
 import { useSockets } from "../context/socket.context";
-import EVENTS from "../context/config/events";
+import EVENTS from "../context/events";
 
 const Components = (): JSX.Element => {
   const { socket, roomId } = useSockets();

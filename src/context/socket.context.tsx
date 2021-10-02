@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
-import EVENTS from "./config/events";
+import EVENTS from "./events";
+import { useDispatch } from "react-redux";
+import { goToLobby, goToGame, goToResult } from "../redux/actions/gameActions";
 
 const SOCKET_URL = process.env.CHAT_URL;
 
@@ -37,6 +39,8 @@ const SocketContext = createContext<Context>({
 });
 
 const SocketsProvider = (props: any): JSX.Element => {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [roomId, setRoomId] = useState("");
   const [rooms, setRooms] = useState({});
@@ -50,6 +54,21 @@ const SocketsProvider = (props: any): JSX.Element => {
   }, []);
 
   useEffect(() => {
+    socket.on(EVENTS.SERVER.TO_LOBBY, (data) => {
+      console.log("to_lobby", data);
+      dispatch(goToLobby());
+    });
+
+    socket.on(EVENTS.SERVER.TO_GAME, (data) => {
+      console.log("to_game", data);
+      dispatch(goToGame());
+    });
+
+    socket.on(EVENTS.SERVER.TO_RESULT, (data) => {
+      console.log("to_result", data);
+      dispatch(goToResult());
+    });
+
     socket.on(EVENTS.SERVER.ROOMS, (value) => {
       setRooms(value);
     });

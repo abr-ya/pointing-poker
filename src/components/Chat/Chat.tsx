@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import EVENTS from "../../context/config/events";
+import EVENTS from "../../context/events";
 import { useSockets } from "../../context/socket.context";
 import { Button } from "@material-ui/core";
 import styles from "./chat.scss";

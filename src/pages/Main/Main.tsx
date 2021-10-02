@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core";
 import { ButtonGroup } from "react-bootstrap"; // ToDo - почему не Material?
 import ButtonPrim from "../../components/ButtonPrim/ButtonPrim";
 import ModalCreateUser from "../../components/Modal/ModalCreateUser";
-import EVENTS from "../../context/config/events";
+import EVENTS from "../../context/events";
 import { useSockets } from "../../context/socket.context";
 
 interface IMain {

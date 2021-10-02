@@ -12,7 +12,9 @@ const EVENTS = {
     USERS: "USERS",
     JOINED_ROOM: "JOINED_ROOM",
     ROOM_MESSAGE: "ROOM_MESSAGE",
-    GAME_START: "GAME_START",
+    TO_LOBBY: "TO_LOBBY",
+    TO_GAME: "TO_GAME",
+    TO_RESULT: "TO_RESULT",
   },
 };
 

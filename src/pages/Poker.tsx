@@ -48,12 +48,7 @@ interface IPoker {
   goToResult: () => void;
 }
 
-const Poker = ({
-  game,
-  goToLobby,
-  goToGame,
-  goToResult,
-}: IPoker): JSX.Element => {
+const Poker = ({ game }: IPoker): JSX.Element => {
   let Component: React.FC = Main; // default to order page
   switch (game.status) {
     case "lobby":
@@ -76,16 +71,6 @@ const Poker = ({
         [classes.windowShift]: openChat,
       })}
     >
-      <h1>Poker</h1>
-      <p>
-        На этой странице будут проходить все стадии игры. Main - обновить
-        страницу)
-      </p>
-      <h2>Временные кнопки для тестов</h2>
-      <ButtonPrim text="lobby" handler={goToLobby} />
-      <ButtonPrim text="game" handler={goToGame} />
-      <ButtonPrim text="result" handler={goToResult} />
-      <p>Текущая стадия: {game.status}</p>
       <Header />
       <Component />
       <Drawer
