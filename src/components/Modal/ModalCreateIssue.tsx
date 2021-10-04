@@ -22,7 +22,7 @@ const ModalCreateIssue = ({
   const yesButtonHandler = () => {
     const salt = nanoid(6);
     yesFunc({
-      title: `newTask_${salt}`,
+      issueText: `newTask_${salt}`,
       link: `http://1234556_${salt}`,
       priority: "low",
     });

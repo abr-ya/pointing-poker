@@ -2,52 +2,43 @@ import React from "react";
 import Grid, { GridDirection, GridSpacing } from "@material-ui/core/Grid/Grid";
 import Issue from "../Issue/Issue";
 import { IIssue } from "../Issue/Issue";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface IIsueList {
   data: IIssue[];
-  loading: boolean;
   isMaster: boolean;
   isLobbyPage: boolean;
+  handlerEditIssue?: (id: string) => void;
+  handlerDeleteIssue?: (id: string) => void;
+  handlerAddIssue?: () => void;
 }
 
 const IssueList = ({
   data,
-  loading,
   isMaster,
   isLobbyPage,
+  handlerEditIssue,
+  handlerDeleteIssue,
+  handlerAddIssue,
 }: IIsueList): JSX.Element => {
   const dir: GridDirection = isLobbyPage ? "row" : "column";
   const spacing: GridSpacing = isLobbyPage ? 2 : 4;
 
-  const handlerEditIssue = (issueID: string) => {
-    console.log("edit issue ID=", issueID);
-  };
-
-  const handlerDeleteIssue = (issueID: string) => {
-    console.log("delete issue ID=", issueID);
-  };
-
-  const handlerAddIssue = () => {
-    console.log("Add new issue");
-  };
-
-  return loading ? (
-    <CircularProgress />
-  ) : (
+  return (
     <Grid container spacing={spacing} direction={dir} alignItems="stretch">
-      {data.map((issue) => (
-        <Issue
-          id={issue.id}
-          issueText={issue.issueText}
-          key={issue.id}
-          priority={issue.priority}
-          isMaster={isMaster}
-          isLobby={isLobbyPage}
-          handlerEditIssue={handlerEditIssue}
-          handlerDeleteIssue={handlerDeleteIssue}
-        />
-      ))}
+      {data &&
+        Array.isArray(data) &&
+        data.map((issue) => (
+          <Issue
+            id={issue.id}
+            issueText={issue.issueText}
+            key={issue.id}
+            priority={issue.priority}
+            isMaster={isMaster}
+            isLobby={isLobbyPage}
+            handlerEditIssue={handlerEditIssue}
+            handlerDeleteIssue={handlerDeleteIssue}
+          />
+        ))}
       {isMaster && (
         <Issue
           id={"0"}

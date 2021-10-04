@@ -15,6 +15,7 @@ const useStyles = makeStyles({
 export interface IIssue {
   id: string;
   issueText: string;
+  link?: string;
   priority: string;
   handlerEditIssue?: (issueID: string) => void;
   handlerDeleteIssue?: (issueID: string) => void;

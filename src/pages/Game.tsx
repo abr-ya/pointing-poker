@@ -5,7 +5,6 @@ const Game = (): JSX.Element => {
   return (
     <div className="container">
       <h1>Game page</h1>
-      <IssueList />
     </div>
   );
 };

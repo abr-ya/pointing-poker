@@ -3,8 +3,8 @@ import IssueList from "./IssueList";
 import { RootStateType } from "../../redux/ReduxProvider";
 
 const mapStateToProps = (state: RootStateType) => ({
-  data: state.issues.data,
-  loading: state.issues.loading,
+  // data: state.issues.data,
+  // loading: state.issues.loading,
   isLobbyPage: state.game.status === "lobby",
   isMaster: state.currentUser.is_master,
 });

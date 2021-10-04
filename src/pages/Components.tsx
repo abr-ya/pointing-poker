@@ -49,8 +49,12 @@ const Components = (): JSX.Element => {
 
   const createTaskConfirmFunction = (data) => {
     console.log("createTaskConfirmFunction");
-    console.log(data);
-    socket.emit(EVENTS.CLIENT.CREATE_TASK, { roomId, ...data });
+    if (roomId) {
+      console.log(roomId, data);
+      socket.emit(EVENTS.CLIENT.CREATE_TASK, { roomId, ...data });
+    } else {
+      console.log("Отказано! Не передан Room ID!");
+    }
     setIsCreateTaskOpen(false);
   };
   // CreateTask end
@@ -102,8 +106,6 @@ const Components = (): JSX.Element => {
       />
       <h2>FileLoader</h2>
       <FileLoader succesHandler={fileLoadHandler} />
-      <h2>Issues</h2>
-      <IssueList />
       <Button
         type="submit"
         form="settingsForm"

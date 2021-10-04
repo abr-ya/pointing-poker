@@ -26,6 +26,7 @@ interface Context {
   setMessages: (data: IMessage[]) => void;
   roomId?: string;
   rooms: { [key: string]: IRoom };
+  issues: any;
 }
 
 const socket = io(SOCKET_URL);
@@ -36,6 +37,7 @@ const SocketContext = createContext<Context>({
   setMessages: () => false,
   rooms: {},
   messages: [],
+  issues: [],
 });
 
 const SocketsProvider = (props: any): JSX.Element => {
@@ -45,6 +47,7 @@ const SocketsProvider = (props: any): JSX.Element => {
   const [roomId, setRoomId] = useState("");
   const [rooms, setRooms] = useState({});
   const [users, setUsers] = useState([]);
+  const [issues, setIssues] = useState([]);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -75,6 +78,7 @@ const SocketsProvider = (props: any): JSX.Element => {
 
     socket.on(EVENTS.SERVER.TASKS, (value) => {
       console.log("получены таски", value);
+      setIssues(value);
     });
 
     socket.on(EVENTS.SERVER.USERS, (value) => {
@@ -112,6 +116,7 @@ const SocketsProvider = (props: any): JSX.Element => {
         messages,
         setMessages,
         users,
+        issues,
       }}
       {...props}
     />

@@ -5,7 +5,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GameSummary from "../components/GameSummary/GameSummaryContainer";
 import IssueList from "../components/IssueList/IssueListContainer";
@@ -14,6 +14,9 @@ import SettingsLobby from "../components/SettingsLobby/SettingsLobby";
 import { IGameSettings } from "../interfaces";
 import { setSettings } from "../redux/actions/gameActions";
 import { RootStateType } from "../redux/ReduxProvider";
+import { useSockets } from "../context/socket.context";
+import EVENTS from "../context/events";
+import ModalCreateIssue from "../components/Modal/ModalCreateIssue";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,9 +33,44 @@ const useStyles = makeStyles(() =>
 );
 
 const Lobby = (): JSX.Element => {
+  const { socket, roomId, issues } = useSockets();
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const settings = useSelector((state: RootStateType) => state.game.settings);
+
+  // CreateTask
+  const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+
+  const createTaskCancelFunction = () => {
+    setIsCreateTaskOpen(false);
+  };
+
+  const createTaskConfirmFunction = (data) => {
+    console.log("createTaskConfirmFunction");
+    if (roomId) {
+      console.log(roomId, data);
+      socket.emit(EVENTS.CLIENT.CREATE_TASK, { roomId, ...data });
+    } else {
+      console.log("Отказано! Не передан Room ID!");
+    }
+    setIsCreateTaskOpen(false);
+  };
+  // CreateTask end
+
+  // Issue list
+  const handlerEditIssue = (issueID: string) => {
+    console.log("edit issue ID=", issueID);
+  };
+
+  const handlerDeleteIssue = (issueID: string) => {
+    console.log("delete issue ID=", issueID);
+  };
+
+  const handlerAddIssue = () => {
+    setIsCreateTaskOpen(true);
+  };
+  // Issue list end
 
   const handlerCopyLink = (): void => {
     console.log("Link copied");
@@ -54,8 +92,6 @@ const Lobby = (): JSX.Element => {
   const handlerDeleteUser = (userID: string) => {
     console.log("delete user UserID =", userID);
   };
-
-  // const [settingsData, setSettings] = useState<IGameSettings>();
 
   const saveSettings = (data: IGameSettings) => {
     dispatch(setSettings(data));
@@ -105,7 +141,12 @@ const Lobby = (): JSX.Element => {
             >
               Issues:
             </Typography>
-            <IssueList />
+            <IssueList
+              data={issues}
+              handlerEditIssue={handlerEditIssue}
+              handlerDeleteIssue={handlerDeleteIssue}
+              handlerAddIssue={handlerAddIssue}
+            />
           </Grid>
           <Grid item>
             <Typography
@@ -118,17 +159,14 @@ const Lobby = (): JSX.Element => {
               Game Settings:
             </Typography>
             <SettingsLobby saveSettings={saveSettings} />
-            {/* <Button
-              type="submit"
-              form="settingsForm"
-              variant="contained"
-              color="primary"
-            >
-              Save settings
-            </Button> */}
           </Grid>
         </Grid>
       </Paper>
+      <ModalCreateIssue
+        issueIsOpen={isCreateTaskOpen}
+        yesFunc={createTaskConfirmFunction}
+        noFunc={createTaskCancelFunction}
+      />
     </div>
   );
 };
