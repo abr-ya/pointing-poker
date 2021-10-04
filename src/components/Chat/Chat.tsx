@@ -64,10 +64,11 @@ const Chat = ({ username }: IChat): JSX.Element => {
               className={cn(styles.message, { [styles.my]: isMy })}
             >
               <div key={index} className={styles.messageInner}>
-                <span className={styles.messageSender}>
-                  {username} - {time}
-                </span>
-                <span className={styles.messageBody}>{message}</span>
+                <span className={styles.messageSender}>{username}</span>
+                <span className={styles.messageTime}>{time}</span>
+              </div>
+              <div key={index} className={styles.messageText}>
+                {message}
               </div>
             </div>
           );
@@ -76,8 +77,12 @@ const Chat = ({ username }: IChat): JSX.Element => {
       </div>
       <div className={styles.messageBox}>
         <form onSubmit={handleSendMessage}>
-          <input placeholder="your message ..." ref={newMessageRef} />
-          <Button type="submit" variant="contained" color="primary">
+          <textarea
+            placeholder="your message ..."
+            rows={3}
+            ref={newMessageRef}
+          ></textarea>
+          <Button type="submit" className={styles.button} variant="outlined">
             send
           </Button>
         </form>
