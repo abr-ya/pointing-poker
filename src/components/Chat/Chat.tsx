@@ -58,16 +58,20 @@ const Chat = ({ username }: IChat): JSX.Element => {
     <div className={styles.wrapper}>
       <div className={styles.messageList}>
         {messages.map(({ message, username, time, isMy }, index) => {
+          // ToDo: key какие-то кривые, но пока так))
           return (
             <div
-              key={index}
+              key={`div1_${index}_${time}`}
               className={cn(styles.message, { [styles.my]: isMy })}
             >
-              <div key={index} className={styles.messageInner}>
+              <div
+                key={`div2_${index}_${time}`}
+                className={styles.messageInner}
+              >
                 <span className={styles.messageSender}>{username}</span>
                 <span className={styles.messageTime}>{time}</span>
               </div>
-              <div key={index} className={styles.messageText}>
+              <div key={`div3_${index}_${time}`} className={styles.messageText}>
                 {message}
               </div>
             </div>

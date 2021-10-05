@@ -1,6 +1,6 @@
 .wrapper {
   min-height: calc(100vh - 200px);
-  height: calc(100vh - 200px);
+  height: 100vh; // calc(100vh - 200px) если должен влезть хедер
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -58,11 +58,11 @@
       position: relative;
       word-wrap: break-word;
       color: white;
-      padding: 18px 20px;
+      padding: 8px;
       line-height: 26px;
       font-size: 16px;
       border-radius: 7px;
-      margin-bottom: 30px;
+      margin-bottom: 5px;
       width: 90%;
       background: #94C2ED;
       &::after {
