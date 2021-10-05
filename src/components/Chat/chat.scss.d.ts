@@ -1,11 +1,13 @@
 declare namespace ChatScssNamespace {
   export interface IChatScss {
+    button: string;
     message: string;
-    messageBody: string;
     messageBox: string;
     messageInner: string;
     messageList: string;
     messageSender: string;
+    messageText: string;
+    messageTime: string;
     my: string;
     wrapper: string;
   }
