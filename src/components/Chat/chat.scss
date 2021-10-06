@@ -1,0 +1,106 @@
+.wrapper {
+  min-height: calc(100vh - 200px);
+  height: 100vh; // calc(100vh - 200px) если должен влезть хедер
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+
+  .messageList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  .messageList ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .message {
+    margin-bottom: 4px;
+    padding: 4px;
+    margin-left: 0;
+    margin-right: 40px;
+  }
+
+  .my {
+    margin-left: 40px;
+    margin-right: 0;
+  }
+
+  .messageInner {
+    margin-bottom: 15px;
+  }
+
+  .messageSender {
+    color: #92959E;
+    font-size: 14px;
+    padding-left: 20px;
+    position: relative;
+    &::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color:#86BB71;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
+  }
+  .messageTime {
+    color: rgba(146,149,158, 0.5);
+    font-size: 14px;
+    padding-left: 6px;
+  }
+  .messageText {
+      position: relative;
+      word-wrap: break-word;
+      color: white;
+      padding: 8px;
+      line-height: 26px;
+      font-size: 16px;
+      border-radius: 7px;
+      margin-bottom: 5px;
+      width: 90%;
+      background: #94C2ED;
+      &::after {
+        bottom: 100%;
+        left: 7%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: #94C2ED;
+        border-width: 10px;
+        margin-left: -10px;
+      }
+  }
+
+  .messageBox {
+    padding: 30px;
+  }
+
+  textarea {
+    width: 100%;
+    border: 1px solid #6cade9;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  .button {
+      float: right;
+      color: #6cade9;
+      font-size: 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      &:hover {
+        color: #5588b8;
+      }
+  }
+}

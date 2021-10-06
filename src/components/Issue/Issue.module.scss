@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.info {
+  margin-left: 15px;
+  flex-grow: 1;
+}
+
+.issueText {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.priority {
+  font-size: 14px;
+}
+
+.active {
+  background-color: #B6EEE2;
+}

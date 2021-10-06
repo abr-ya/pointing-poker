@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.info {
+  margin-left: 15px;
+  flex-grow: 1;
+}
+
+.scoreText {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.active {
+  background-color: #B6EEE2;
+}
