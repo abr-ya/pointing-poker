@@ -1,7 +1,6 @@
 import React from "react";
 import { IGame } from "../interfaces";
 import { Main, Lobby, Game, Result } from "./index";
-import ButtonPrim from "../components/ButtonPrim/ButtonPrim";
 import Footer from "../components/Layout/Footer";
 import Header from "../components/Layout/HeaderContainer";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,7 +14,6 @@ const drawerWidth = 450;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // chat styles
     drawer: {
       width: drawerWidth,
       flexShrink: 0,

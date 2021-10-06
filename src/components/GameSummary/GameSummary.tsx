@@ -19,7 +19,8 @@ const useStyles = makeStyles(() =>
       alignItems: "center",
     },
     formHidden: {
-      visibility: "hidden",
+      // visibility: "hidden",
+      display: "none",
     },
     linkLabel: {
       width: "100%",
@@ -43,9 +44,10 @@ interface IGameSummary {
   masterInfo: IUser;
   gameID: string;
   role: string;
-  handlerStartGame: () => void;
-  handlerCopyLink: () => void;
-  handlerCancelGame: () => void;
+  status: string;
+  handlerStartGame?: () => void;
+  handlerCopyLink?: () => void;
+  handlerCancelGame?: () => void;
   handlerExitGame: () => void;
 }
 
@@ -53,6 +55,7 @@ const GameSummary = ({
   masterInfo,
   gameID,
   role = "player",
+  status,
   handlerStartGame,
   handlerCopyLink,
   handlerCancelGame,
@@ -76,7 +79,7 @@ const GameSummary = ({
       <Grid
         container
         className={cn(classes.form, {
-          [classes.formHidden]: role === "player",
+          [classes.formHidden]: role === "player" || status !== "lobby",
         })}
       >
         <Grid item xs={12}>

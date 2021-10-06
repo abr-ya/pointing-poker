@@ -8,7 +8,7 @@ import ManageButtons from "../Buttons/ManageButtons";
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 300,
+    width: 300,
   },
 });
 

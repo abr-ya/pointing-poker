@@ -13,7 +13,8 @@ const API_FILE = process.env.API_FILE;
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 300,
+    // maxWidth: 300,
+    minWidth: 300,
   },
   avatar: {
     width: 50,

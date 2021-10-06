@@ -12,6 +12,7 @@ const findMaster = (element: IUser) => {
 const mapStateToProps = (state: RootStateType) => ({
   masterInfo: state.users.data.find(findMaster),
   role: state.currentUser.is_master ? "master" : "player",
+  status: state.game.status,
   gameID: state.game.id,
 });
 
