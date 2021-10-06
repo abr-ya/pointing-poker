@@ -1,17 +1,21 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid/Grid";
+import Grid, { GridDirection } from "@material-ui/core/Grid/Grid";
 import Member from "../Member/Member";
 import { IUser } from "../../interfaces";
 
 interface IMembersList {
   data: IUser[];
   loading: boolean;
+  isLobbyPage: boolean;
+  isMaster: boolean;
   handlerDeleteUser: (id: string) => void;
 }
 
 const MembersList = ({
   data,
   loading,
+  isLobbyPage,
+  isMaster,
   handlerDeleteUser,
 }: IMembersList): JSX.Element => {
   const users = data.map((item) => ({
@@ -23,10 +27,12 @@ const MembersList = ({
     is_master: item.is_master,
   }));
 
+  const dir: GridDirection = isLobbyPage ? "row" : "column";
+
   return loading ? (
     <div>загрузка... ... ...</div>
   ) : (
-    <Grid container spacing={2} direction="row" alignItems="stretch">
+    <Grid container spacing={2} direction={dir} alignItems="stretch">
       {users.map((user) => {
         if (!user.is_master)
           return (

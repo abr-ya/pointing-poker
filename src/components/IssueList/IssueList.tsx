@@ -24,7 +24,13 @@ const IssueList = ({
   const spacing: GridSpacing = isLobbyPage ? 2 : 4;
 
   return (
-    <Grid container spacing={spacing} direction={dir} alignItems="stretch">
+    <Grid
+      container
+      spacing={spacing}
+      direction={dir}
+      alignItems="stretch"
+      justifyContent="center"
+    >
       {data &&
         Array.isArray(data) &&
         data.map((issue) => (
@@ -39,7 +45,7 @@ const IssueList = ({
             handlerDeleteIssue={handlerDeleteIssue}
           />
         ))}
-      {isMaster && (
+      {isMaster && handlerAddIssue && (
         <Issue
           id={"0"}
           issueText={"Create new Issue"}
