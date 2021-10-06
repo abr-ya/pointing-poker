@@ -45,7 +45,7 @@ const IssueList = ({
             handlerDeleteIssue={handlerDeleteIssue}
           />
         ))}
-      {isMaster && (
+      {isMaster && handlerAddIssue && (
         <Issue
           id={"0"}
           issueText={"Create new Issue"}

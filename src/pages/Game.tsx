@@ -1,12 +1,13 @@
 import { makeStyles, createStyles, Button, Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Score } from "@material-ui/icons";
 import React from "react";
 import GameSummary from "../components/GameSummary/GameSummaryContainer";
 import IssueList from "../components/IssueList/IssueListContainer";
 import MembersList from "../components/MembersList/MembersListContainer";
 import ScoreList from "../components/ScoreList/ScoreList";
+import { useSockets } from "../context/socket.context";
+import EVENTS from "../context/events";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,6 +35,8 @@ interface IGameProps {
 }
 
 const Game = ({ isMaster }: IGameProps): JSX.Element => {
+  const { issues } = useSockets();
+  console.log(issues);
   const classes = useStyles();
 
   const handlerExitGame = (): void => {
@@ -74,7 +77,7 @@ const Game = ({ isMaster }: IGameProps): JSX.Element => {
               >
                 Issues:
               </Typography>
-              <IssueList />
+              <IssueList data={issues} />
             </Grid>
             <Grid item>
               {isMaster && (
